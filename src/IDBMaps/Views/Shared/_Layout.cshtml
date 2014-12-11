@@ -1,0 +1,544 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+     @Scripts.Render(" ~/bundles/jquery")
+   
+
+@*    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")*@
+
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map_canvas { height: 100% }
+    </style>
+
+    <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyApSym1RkpE-z1rFB71EKICoTSCuhPHt10&sensor=TRUE">
+    </script>
+
+     <script type="text/javascript">
+
+
+     $( document ).ready(function() {
+            var building;
+            var map;
+            var markers = [];
+            var lines = [];
+            var maxnodeid=0;
+            var oldmap=null;
+            var firstNode = null;
+
+            var bank = new google.maps.LatLng(38.899091, -77.029808);
+
+            var swBound = new google.maps.LatLng(38.899091, -77.031809);
+            var neBound = new google.maps.LatLng(38.899742, -77.029808);
+
+            var imageBounds = new google.maps.LatLngBounds(
+            swBound,
+            neBound);
+
+            var mapOptions = {
+                center: bank,
+                zoom: 20,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+
+            map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+
+           
+
+
+            $("#search").click(function()
+            {
+                $.ajax({
+                    url: "@Url.Action("../api/Map/GetOfficeCoordinates")"+"?BuildingId=2&OfficeNumber="+$("#txtsearch").val(),
+                    type: "GET",
+                    dataType: "json",
+                    async: false,
+                    contentType: "application/json charset=utf-8",
+                    processData: false,
+                    success: function(data) {
+                        var coor = data.TargetCoordinate;
+                        $("#floor").val(coor.FloorMap.Floor);
+                        $("#floor").change();
+                        setAllMap(null);
+                        markers = [];
+                        
+                        var marker = new google.maps.Marker({
+                        map: map,
+                        draggable: true,
+                        position: new google.maps.LatLng(coor.Latitude, coor.Longitude),
+                        title: coor.DisplayName,
+                        detail: coor.OfficeId
+                        });
+
+                        marker['coor'] = this;
+                     
+                        markers.push(marker);
+
+                        }
+                    });
+            });
+
+            $.ajax({
+                url: "@Url.Action("../api/Device")"+"?Name=2EAST",
+                type: "GET",
+                dataType: "json",
+                async: false,
+                contentType: "application/json charset=utf-8",
+                processData: false,
+                success: function(data) {
+                building= data.Building;
+                showMarkers(2);
+                $('#floor').val(2);
+                $('#floor').change();
+            }
+            });
+
+          $('#floor').change(function()
+          {    
+               if(oldmap != null)
+                     oldmap.setMap(null);
+               oldmap = new google.maps.GroundOverlay("/Content/maps/IDB-"+$(this).val()+".png",
+                                            imageBounds);
+               oldmap.setMap(map);
+               google.maps.event.addListener(oldmap, "dblclick", function(event)
+               {
+
+                        var floor = $("#floor").val();
+                        var floorMapId = building.FloorMaps[floor].FloorMapId;
+                        var type = $("#type").val();
+
+
+                        switch(type)
+                        {
+                            case "O":
+                                var officenumber = $("#prefix").val() + window.prompt("Office Number","");
+                                 $.ajax({
+                                            url: "@Url.Action("AddMarker")",
+                                            type: "POST",
+                                            datatype: "json",
+                                            contentType: "application/json; charset=utf-8",
+                                            traditional: false,
+                                            data: JSON.stringify({OfficeNumber: officenumber, Latitude:event.latLng.lat(), Longitude:event.latLng.lng(), FloorMapId:floorMapId}) ,
+                                            success: function (html) 
+                                            {
+                                            },
+                                            error: function(a,b,c)
+                                            {
+                                                alert(b);
+                                            }
+                                        });
+
+                            break;
+                             case "BM":
+                                 $.ajax({
+                                            url: "@Url.Action("AddMarker")",
+                                            type: "POST",
+                                            datatype: "json",
+                                            contentType: "application/json; charset=utf-8",
+                                            traditional: false,
+                                            data: JSON.stringify({OfficeNumber: 'BM', Latitude:event.latLng.lat(), Longitude:event.latLng.lng(), FloorMapId:floorMapId}) ,
+                                            success: function (html) 
+                                            {
+                                            },
+                                            error: function(a,b,c)
+                                            {
+                                                alert(b);
+                                            }
+                                        });
+
+                            break;
+                            case "BW":
+                                 $.ajax({
+                                            url: "@Url.Action("AddMarker")",
+                                            type: "POST",
+                                            datatype: "json",
+                                            contentType: "application/json; charset=utf-8",
+                                            traditional: false,
+                                            data: JSON.stringify({OfficeNumber: 'BW', Latitude:event.latLng.lat(), Longitude:event.latLng.lng(), FloorMapId:floorMapId}) ,
+                                            success: function (html) 
+                                            {
+                                            },
+                                            error: function(a,b,c)
+                                            {
+                                                alert(b);
+                                            }
+                                        });
+
+                            break;
+                             case "N":
+                                var nodeId = maxnodeid+1;
+                              
+                                 $.ajax({
+                                            url: "@Url.Action("AddNode")",
+                                            type: "POST",
+                                            datatype: "json",
+                                            contentType: "application/json; charset=utf-8",
+                                            traditional: false,
+                                            data: JSON.stringify({NodeId: $("#prefix").val() +nodeId, Latitude:event.latLng.lat(), Longitude:event.latLng.lng(), FloorMapId:floorMapId}) ,
+                                            success: function (html) 
+                                            {
+                                            },
+                                            error: function(a,b,c)
+                                            {
+                                                alert(b);
+                                            }
+                                        });
+                               
+                                 showNodes(floor);
+
+                            break;
+
+
+                        }
+                        
+               
+               
+               });            
+               $('#type').change();
+
+          });
+  
+
+          $('#type').change(function()
+          {
+            setAllMap(null);
+            var floor = $("#floor").val();
+            var floorMapId = building.FloorMaps[floor].FloorMapId;
+            var type = $("#type").val();
+
+
+            switch(type)
+            {
+                case "O":
+                    showMarkers(floor);
+                    break;
+                case "C":
+                    showNodes(floor);
+                    showConnections(floor);
+                    break;
+                case "PC":showNodes(floor);
+                    showConnections(floor);
+                    break;
+                case "N":
+                    showNodes(floor);
+                    showConnections(floor);
+                    
+                    break;
+
+            }
+
+          });
+
+
+         
+
+         function setAllMap(map) {
+              for (var i = 0; i < markers.length; i++) 
+                markers[i].setMap(map);
+
+         }
+
+         function showMarkers(floor) {
+                
+                setAllMap(null);
+                markers = [];
+
+                  var floor = $("#floor").val();
+                 var floorMapId = building.FloorMaps[floor].FloorMapId;
+
+                  $.ajax({
+                        url: "@Url.Action("GetOffices")"+"?FloorMapId="+floorMapId,
+                        type: "GET",
+                        dataType: "json",
+                        async: false,
+                        contentType: "application/json charset=utf-8",
+                        processData: false,
+                        success: function(data) {
+                            $(data.Coordinates).each(function()
+                            {
+                                 var marker = new google.maps.Marker({
+                                 map: map,
+                                 draggable: true,
+                                 position: new google.maps.LatLng(this.Latitude, this.Longitude),
+                                 title: this.DisplayName,
+                                 detail: this.OfficeId
+                                 });
+
+                                 marker['coor'] = this;
+                     
+                                 markers.push(marker);
+                    
+                                 google.maps.event.addListener(marker, 'dragend', update);
+                                  google.maps.event.addListener(marker, 'click', details); 
+                                google.maps.event.addListener(marker, 'dblclick', deletemarker);
+                    
+                                 function update(event) {
+                                     $.ajax({
+                                        url: "@Url.Action("UpdateMarker")",
+                                        type: "POST",
+                                        datatype: "json",
+                                        contentType: "application/json; charset=utf-8",
+                                        traditional: false,
+                                        data: JSON.stringify({OfficeId: this.coor.OfficeId, Latitude:event.latLng.lat(), Longitude:event.latLng.lng()}) ,
+                                        success: function (html) {
+                                        },
+                                        error: function(a,b,c)
+                                        {
+                                            alert(b);
+                                        }
+                                    });
+                                 }
+
+                                  function details(event) {
+                                    var infowindow = new google.maps.InfoWindow({
+                                          content: "<div>"+this.coor.DisplayName+"</div>"
+                                      });
+                                   infowindow.open(map,this);
+                                 }
+
+                                  function deletemarker(event) {
+                                     if(confirm("are you sure?"))
+                                                {
+                                                         $.ajax({
+                                                                url: "@Url.Action("DeleteMarker")",
+                                                                type: "POST",
+                                                                datatype: "json",
+                                                                contentType: "application/json; charset=utf-8",
+                                                                traditional: false,
+                                                                data: JSON.stringify({OfficeId: this.coor.OfficeId}) ,
+                                                                success: function (html) {
+                                                                    showMarkers(floor);
+                                                                },
+                                                                error: function(a,b,c)
+                                                                {
+                                                                    alert(b);
+                                                                }
+                                                            });
+
+
+                                                 }
+                                 }
+                                
+                           })
+
+                        }
+                      });
+
+                 
+         }
+      
+         function showConnections(floor) { 
+              
+                for (var i = 0; i < lines.length; i++) 
+                    lines[i].setMap(null);
+
+                lines = [];
+                 var floor = $("#floor").val();
+                 var floorMapId = building.FloorMaps[floor].FloorMapId;
+                 $.ajax({
+                        url: "@Url.Action("GetGraph")"+"?FloorMapId="+floorMapId,
+                        type: "GET",
+                        dataType: "json",
+                        async: false,
+                        contentType: "application/json charset=utf-8",
+                        processData: false,
+                        success: function(data) {
+                        if (data== null)
+                            return;                  
+                        for (var i = 0; i < data.length; i++) 
+                        {
+                            var NodeA = data[i].NodeA;
+                            var NodeB = data[i].NodeB;
+
+
+                            var color = '#0000FF';
+                            if(data[i].Show == false)
+                              var color ='#FF0000';
+
+                             var lineCoordinates = [
+                                new google.maps.LatLng(NodeA.Latitude, NodeA.Longitude),
+                                new google.maps.LatLng(NodeB.Latitude, NodeB.Longitude),
+                                ];
+                            var line = new google.maps.Polyline({
+                            path: lineCoordinates,
+                            geodesic: true,
+                            strokeColor: color,
+                            strokeOpacity: 1.0,
+                            strokeWeight: 2
+                            });
+
+
+
+                            line['con'] = data[i];
+
+                              google.maps.event.addListener(line, 'dblclick', deleteCon);
+                    
+                             function deleteCon(event) {
+                                 $.ajax({
+                                    url: "@Url.Action("DeleteConnection")",
+                                    type: "POST",
+                                    datatype: "json",
+                                    contentType: "application/json; charset=utf-8",
+                                    traditional: false,
+                                    data: JSON.stringify({ConnectionId: this.con.ConnectionId}) ,
+                                    success: function (html) {
+                                        showNodes(floor);
+                                        showConnections(floor);
+                                        
+                                    },
+                                    error: function(a,b,c)
+                                    {
+                                        alert(b);
+                                    }
+                                });
+                             }
+
+                            line.setMap(map);
+                            lines.push(line);
+
+                        }
+
+                }
+                });
+      
+         }
+
+         function showNodes(floor) { 
+                setAllMap(null);
+                markers = [];
+                 var floor = $("#floor").val();
+                 var floorMapId = building.FloorMaps[floor].FloorMapId;
+                 $.ajax({
+                        url: "@Url.Action("GetNodes")"+"?FloorMapId="+floorMapId,
+                        type: "GET",
+                        dataType: "json",
+                        async: false,
+                        contentType: "application/json charset=utf-8",
+                        processData: false,
+                        success: function(data) {
+                        if (data== null)
+                            return;                  
+                        for (var i = 0; i < data.length; i++) 
+                        {
+                            if(maxnodeid < parseInt(data[i].IdentifierparseInt))
+                                     maxnodeid = parseInt(data[i].IdentifierparseInt)
+
+                            var marker = new google.maps.Marker({
+                             map: map,
+                             icon: {
+                              path: google.maps.SymbolPath.CIRCLE,
+                              scale: 5
+                            },
+                             draggable: true,
+                             position: new google.maps.LatLng(data[i].Latitude, data[i].Longitude)
+                             });
+
+                             marker['node'] = data[i];
+                     
+                             markers.push(marker); 
+                             
+                             google.maps.event.addListener(marker, 'dragend', update);
+                              google.maps.event.addListener(marker, 'click', selectnode);
+                               google.maps.event.addListener(marker, 'dblclick', deletenode);
+
+                             function update(event) {
+                                 $.ajax({
+                                    url: "@Url.Action("UpdateNode")",
+                                    type: "POST",
+                                    datatype: "json",
+                                    contentType: "application/json; charset=utf-8",
+                                    traditional: false,
+                                    data: JSON.stringify({NodeId: this.node.NodeId, Latitude:event.latLng.lat(), Longitude:event.latLng.lng()}) ,
+                                    success: function (html) {
+                                        showConnections(floor);
+                                    },
+                                    error: function(a,b,c)
+                                    {
+                                        alert(b);
+                                    }
+                                });
+                             }
+
+                             function deletenode(event) {
+                                     if(confirm("are you sure?"))
+                                                {
+                                                         $.ajax({
+                                                                url: "@Url.Action("DeleteNode")",
+                                                                type: "POST",
+                                                                datatype: "json",
+                                                                contentType: "application/json; charset=utf-8",
+                                                                traditional: false,
+                                                                data: JSON.stringify({NodeId: this.node.NodeId}) ,
+                                                                success: function (html) {
+                                                                 firstNode= null;
+                                                                     showNodes(floor);
+                                                                        showConnections(floor);
+                                                                },
+                                                                error: function(a,b,c)
+                                                                {
+                                                                    alert(b);
+                                                                }
+                                                            });
+
+
+                                                 }
+                                 }
+
+                             function selectnode(event) {
+                                var floor = $("#floor").val();
+                                var floorMapId = building.FloorMaps[floor].FloorMapId;
+                                
+                                var show = true;
+
+                                if($("#type").val() =="PC")
+                                    show = false;
+
+                                if( firstNode == null)
+                                {
+                                    firstNode = this.node;
+                                    return;
+                                 }
+                                       
+
+                                 $.ajax({
+                                    url: "@Url.Action("AddConnection")",
+                                    type: "POST",
+                                    datatype: "json",
+                                    contentType: "application/json; charset=utf-8",
+                                    traditional: false,
+                                    data: JSON.stringify({NodeAId: this.node.NodeId, NodeBId: firstNode.NodeId, FloorMapId: floorMapId, Show:show}) ,
+                                    success: function (html) {
+                                        firstNode= null;
+                                        showNodes(floor);
+                                        showConnections(floor);
+                                    },
+                                    error: function(a,b,c)
+                                    {
+                                        alert(b);
+                                    }
+                                });
+                             }
+
+                        }
+
+                }
+                });
+      
+         }
+        
+
+        });
+    </script>
+</head>
+<body>
+    @RenderBody()
+</body>
+</html>

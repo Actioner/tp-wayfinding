@@ -25,6 +25,14 @@ namespace TP.Wayfinding.Site
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/karmanta/css").Include(
+                      "~/Content/karmanta/css/bootstrap.css",
+                      "~/Content/karmanta/css/bootstrap-theme.css",
+                      "~/Content/karmanta/css/elegant-icons-style.css",
+                      "~/Content/karmanta/assets/font-awesome/css/font-awesome.css",
+                      "~/Content/karmanta/css/style.css",
+                      "~/Content/karmanta/css/style-responsive.css"));
         }
     }
 }

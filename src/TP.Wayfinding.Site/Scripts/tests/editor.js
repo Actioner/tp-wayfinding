@@ -61,7 +61,7 @@ function setupOverlay(img, map) {
 
 
   var gdalCommand = document.createElement('pre');
-  gdalCommand.id = 'gdal-command';
+  gdalCommand.id = 'gdal-model';
   map.controls[google.maps.ControlPosition.RIGHT_BOTTOM]
       .push(gdalCommand);
 
@@ -71,7 +71,7 @@ function setupOverlay(img, map) {
   google.maps.event.addListener(overlay, 'change', function () {
     var dots = overlay.getDotLatLngs();
 
-    // Generate GDAL command
+    // Generate GDAL model
     var cmd = ['gdal_translate'];
     cmd.push('\\\n');
     cmd.push('-gcp 0 0', dots[0].lng(), dots[0].lat());

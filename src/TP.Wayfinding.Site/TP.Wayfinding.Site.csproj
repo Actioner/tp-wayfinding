@@ -44,11 +44,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\packages\AutoMapper.3.3.0\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\..\packages\AutoMapper.3.3.0\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Fasterflect">
+      <HintPath>..\..\packages\fasterflect.2.1.3\lib\net40\Fasterflect.dll</HintPath>
     </Reference>
     <Reference Include="FluentValidation">
       <HintPath>..\..\packages\FluentValidation.5.5.0.0\lib\Net40\FluentValidation.dll</HintPath>
@@ -117,6 +126,10 @@
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling">
       <HintPath>..\..\packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</HintPath>
     </Reference>
+    <Reference Include="MvcContrib.FluentHtml, Version=3.0.100.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvcContrib.Mvc3.FluentHtml-ci.3.0.100.0\lib\MvcContrib.FluentHtml.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -155,6 +168,10 @@
     <Reference Include="System.Web.Http, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -199,10 +216,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\karmanta\assets\chart-master\Chart.js" />
     <Content Include="Content\karmanta\assets\chart-master\Chart.min.js" />
     <Content Include="Content\karmanta\assets\chart-master\docs\Chart.js" />
@@ -469,6 +482,15 @@
     <Content Include="Content\karmanta\assets\fullcalendar\jquery\jquery-1.8.1.min.js" />
     <Content Include="Content\karmanta\assets\fullcalendar\jquery\jquery-ui-1.8.23.custom.min.js" />
     <Content Include="Content\karmanta\assets\fullcalendar\MIT-LICENSE.txt" />
+    <Content Include="Content\karmanta\assets\gritter\css\jquery.gritter.css" />
+    <Content Include="Content\karmanta\assets\gritter\images\gritter-light.png" />
+    <Content Include="Content\karmanta\assets\gritter\images\gritter-long.png" />
+    <Content Include="Content\karmanta\assets\gritter\images\gritter.png" />
+    <Content Include="Content\karmanta\assets\gritter\images\ie-spacer.gif" />
+    <Content Include="Content\karmanta\assets\gritter\images\trees.jpg" />
+    <Content Include="Content\karmanta\assets\gritter\index.html" />
+    <Content Include="Content\karmanta\assets\gritter\js\jquery.gritter.js" />
+    <Content Include="Content\karmanta\assets\gritter\js\jquery.gritter.min.js" />
     <Content Include="Content\karmanta\assets\jquery-easy-pie-chart\examples\excanvas.js" />
     <Content Include="Content\karmanta\assets\jquery-easy-pie-chart\examples\index.html" />
     <Content Include="Content\karmanta\assets\jquery-easy-pie-chart\examples\style.css" />
@@ -644,6 +666,9 @@
     <Content Include="Content\karmanta\js\bootstrap.min.js" />
     <Content Include="Content\karmanta\js\calendar-custom.js" />
     <Content Include="Content\karmanta\js\chartjs-custom.js" />
+    <Content Include="Content\karmanta\js\jquery-ui-1.9.2.custom.js" />
+    <Content Include="Content\karmanta\js\jquery.customSelect.js" />
+    <Content Include="Content\karmanta\js\jquery.scrollTo.js" />
     <Content Include="Content\karmanta\js\dynamic-table.js" />
     <Content Include="Content\karmanta\js\easy-pie-chart.js" />
     <Content Include="Content\karmanta\js\form-component.js" />
@@ -676,14 +701,11 @@
     <Content Include="fonts\ElegantIcons.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\common.js" />
     <Content Include="Scripts\d3.v3.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <Content Include="fonts\ElegantIcons.eot" />
     <Content Include="fonts\ElegantIcons.ttf" />
     <Content Include="fonts\ElegantIcons.woff" />
@@ -818,6 +840,9 @@
     <Content Include="Content\karmanta\assets\font-awesome\scss\_spinning.scss" />
     <Content Include="Content\karmanta\assets\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\karmanta\assets\font-awesome\scss\_variables.scss" />
+    <Content Include="Content\karmanta\assets\gritter\bower.json" />
+    <Content Include="Content\karmanta\assets\gritter\package.json" />
+    <Content Include="Content\karmanta\assets\gritter\README.markdown" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\html5shiv.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -828,13 +853,20 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-3.2.0.debug.js" />
+    <Content Include="Scripts\knockout-3.2.0.js" />
+    <Content Include="Scripts\knockout.mapping-latest.debug.js" />
+    <Content Include="Scripts\knockout.mapping-latest.js" />
+    <Content Include="Scripts\knockout.validation.debug.js" />
+    <Content Include="Scripts\knockout.validation.js" />
+    <Content Include="Scripts\modal\deleteConfirm.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\tests\affineoverlay.js" />
+    <Content Include="Scripts\tests\downloadcontrol.js" />
     <Content Include="Scripts\tests\d3overlay.js" />
     <Content Include="Scripts\tests\dot.js" />
     <Content Include="Scripts\tests\drawingManager.js" />
@@ -846,6 +878,8 @@
     <Content Include="Scripts\tests\polylines.js" />
     <Content Include="Scripts\tests\transformedimage.js" />
     <Content Include="Scripts\tests\upload.js" />
+    <Content Include="Scripts\wayfinding\building.js" />
+    <Content Include="Scripts\wayfinding\floor.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -853,22 +887,49 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Components\Account\CustomRoleProvider.cs" />
+    <Compile Include="Components\AutoMapper\AutoMappingsCreator.cs" />
+    <Compile Include="Components\Extensions\Formatting.cs" />
+    <Compile Include="Components\Extensions\HtmlExtensions.cs" />
+    <Compile Include="Components\Filters\ValidationActionFilter.cs" />
     <Compile Include="Components\Formatter\FormatExpression.cs" />
     <Compile Include="Components\Formatter\ITextExpression.cs" />
     <Compile Include="Components\Formatter\LiteralFormat.cs" />
     <Compile Include="Components\Formatter\NamedFormatter.cs" />
     <Compile Include="Components\Services\EncryptionService.cs" />
     <Compile Include="Components\Services\IEncryptionService.cs" />
-    <Compile Include="Components\Validators\ChangePasswordValidator.cs" />
-    <Compile Include="Components\Validators\LoginValidator.cs" />
+    <Compile Include="Components\Validators\Building\BuildingValidator.cs" />
+    <Compile Include="Components\Validators\Building\EditBuildingValidator.cs" />
+    <Compile Include="Components\Validators\Building\CreateBuildingValidator.cs" />
+    <Compile Include="Components\Validators\Floor\FloorValidator.cs" />
+    <Compile Include="Components\Validators\Floor\CreateFloorValidator.cs" />
+    <Compile Include="Components\Validators\Floor\EditFloorValidator.cs" />
+    <Compile Include="Components\Validators\Security\ChangePasswordValidator.cs" />
+    <Compile Include="Components\Validators\Security\LoginValidator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\BaseApiController.cs" />
+    <Compile Include="Controllers\Api\BuildingController.cs" />
+    <Compile Include="Controllers\Api\FloorController.cs" />
+    <Compile Include="Controllers\BuildingController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\FloorController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ManageUserViewModel.cs" />
-    <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\Account\ManageModel.cs" />
+    <Compile Include="Models\Account\LoginModel.cs" />
+    <Compile Include="Models\Building\BuildingListModel.cs" />
+    <Compile Include="Models\Building\BuildingModel.cs" />
+    <Compile Include="Models\Building\CreateBuildingModel.cs" />
+    <Compile Include="Models\Building\EditBuildingModel.cs" />
+    <Compile Include="Models\Floor\FloorSearchModel.cs" />
+    <Compile Include="Models\Floor\FloorListModel.cs" />
+    <Compile Include="Models\Floor\FloorModel.cs" />
+    <Compile Include="Models\Floor\CreateFloorModel.cs" />
+    <Compile Include="Models\Floor\EditFloorModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -876,12 +937,11 @@
     <Content Include="packages.config" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -890,7 +950,19 @@
     <Content Include="Views\Home\Tiler\Upload.cshtml" />
     <Content Include="Views\Home\Tiler\Edit.cshtml" />
     <Content Include="Views\Shared\_GuestLayout.cshtml" />
-    <Content Include="Views\Shared\_html5shiv.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Shared\Header\_Header.cshtml" />
+    <Content Include="Views\Shared\Aside\_Aside.cshtml" />
+    <Content Include="Views\Building\Index.cshtml" />
+    <Content Include="Views\Building\Create.cshtml" />
+    <Content Include="Views\Shared\Modal\_DeleteConfirm.cshtml" />
+    <Content Include="Views\Building\Edit.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EditBuildingModel.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CreateBuildingModel.cshtml" />
+    <Content Include="Views\Floor\Create.cshtml" />
+    <Content Include="Views\Floor\Edit.cshtml" />
+    <Content Include="Views\Floor\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CreateFloorModel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -911,6 +983,9 @@
       <Project>{f1f1e153-9cba-4a03-8f8d-0ff8105987dc}</Project>
       <Name>TP.Wayfinding.Resources</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -944,6 +1019,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <Import Project="..\..\packages\AutoMapper.3.3.0\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.3.0\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

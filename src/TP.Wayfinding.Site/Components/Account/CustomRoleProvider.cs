@@ -77,7 +77,7 @@ namespace TP.Wayfinding.Site.Components.Account
 
         public override string[] GetAllRoles()
         {
-            IList<Role> roles = Database.Default.Role.FindAll();
+            IList<Role> roles = Database.Default.Role.All();
             return roles.Select(r => r.Name).ToArray();
         }
 

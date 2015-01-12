@@ -12,11 +12,12 @@ namespace TP.Wayfinding.Domain
         public string Name { get; set; }
         public string Location { get; set; }
         public string Company { get; set; }
-        public IList<FloorMap> FloorMapsy { get; set; }
-        private DateTime? LastUpdated { get; set; }
-        public float NWLatitude { get; set; }
-        public float NWLongitude { get; set; }
-        public float SELatitude { get; set; }
-        public float SELongitude { get; set; }
+        public string Address { get; set; }
+        public IList<FloorMap> FloorMaps { get; set; }
+        public DateTime? LastUpdated { get; set; }
+        public float NwLatitude { get; set; }
+        public float NwLongitude { get; set; }
+        public float SeLatitude { get; set; }
+        public float SeLongitude { get; set; }
     }
 }

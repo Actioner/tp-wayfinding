@@ -59,6 +59,10 @@ function setupOverlay(img, map) {
   map.controls[google.maps.ControlPosition.TOP_LEFT]
       .push(opacity.getElement());
 
+  var download = new overlaytiler.DownloadControl(overlay, overlay.canvas_);
+  map.controls[google.maps.ControlPosition.TOP_LEFT]
+      .push(download.getElement());
+
 
   var gdalCommand = document.createElement('pre');
   gdalCommand.id = 'gdal-model';

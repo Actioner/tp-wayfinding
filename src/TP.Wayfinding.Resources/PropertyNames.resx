@@ -126,6 +126,9 @@
   <data name="City" xml:space="preserve">
     <value>City</value>
   </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm Password</value>
   </data>
@@ -159,6 +162,12 @@
   <data name="NewPassword" xml:space="preserve">
     <value>New password</value>
   </data>
+  <data name="NWLatitude" xml:space="preserve">
+    <value>NW Latitude</value>
+  </data>
+  <data name="NWLongitude" xml:space="preserve">
+    <value>NW Longitude</value>
+  </data>
   <data name="OldPassword" xml:space="preserve">
     <value>Old password</value>
   </data>
@@ -170,6 +179,12 @@
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Remember me?</value>
+  </data>
+  <data name="SELatitude" xml:space="preserve">
+    <value>SE Latitude</value>
+  </data>
+  <data name="SELongitude" xml:space="preserve">
+    <value>SE Longitude</value>
   </data>
   <data name="Size" xml:space="preserve">
     <value>Size</value>
@@ -197,5 +212,8 @@
   </data>
   <data name="VerifyPassword" xml:space="preserve">
     <value>Verify password</value>
+  </data>
+  <data name="Floor" xml:space="preserve">
+    <value>Floor</value>
   </data>
 </root>

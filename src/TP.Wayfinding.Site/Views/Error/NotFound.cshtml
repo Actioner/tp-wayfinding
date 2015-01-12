@@ -1,0 +1,42 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+<!DOCTYPE html>
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TP Wayfinding">
+    <meta name="author" content="Jorge Rodriguez Breuning, Ignacio Raul Cerrato">
+    <meta name="keyword" content="Indoor, Map, Wayfinding, Navigation, GPS">
+    <link rel="shortcut icon" href="~/Content/karmanta/img/favicon.png">
+    <title>Not Found - Wayfinding</title>
+
+    @Styles.Render("~/Content/karmanta/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+    <!--[if lt IE 9]>
+    <script src=""~/Scripts/html5shiv.js"></script>
+    <script src=""~/Scripts/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+    <div class="page-404">
+        <p class="text-404">404</p>
+
+        <h2>Aww Snap!</h2>
+        <p>
+            Something went wrong or that page doesn’t exist yet.
+    <br>
+            @Html.ActionLink("Return Home", "Index", "Home")
+        </p>
+    </div>
+
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

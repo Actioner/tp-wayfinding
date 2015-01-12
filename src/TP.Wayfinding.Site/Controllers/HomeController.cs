@@ -1,9 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace TP.Wayfinding.Site.Controllers
 {
-    [Authorize]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
@@ -26,6 +26,8 @@ namespace TP.Wayfinding.Site.Controllers
 
         public ActionResult Graph()
         {
+
+            throw new Exception();
             return View();
         }
         

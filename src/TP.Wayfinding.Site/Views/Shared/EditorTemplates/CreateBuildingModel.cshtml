@@ -1,0 +1,65 @@
+﻿@using TP.Wayfinding.Resources
+@using TP.Wayfinding.Site.Components.Extensions
+@using TP.Wayfinding.Site.Models.Building
+
+@model CreateBuildingModel
+
+<form action="#" method="post" class="form-horizontal form-validate" role="form">
+    <section class="panel col-lg-6">
+        <header class="panel-heading">Create Building</header>
+        <div class="panel-body">
+            @Html.HiddenFor(m => m.Id)
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", data_bind = "value: data.name, css: { error: typeof(errors.name()) !== 'undefined' }" })
+                    @Html.WayfindingValidationMessageFor(m => m.Name, new { @data_bind = "text: errors.name" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Company, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Company, new { @class = "form-control", data_bind = "value: data.company, css: { error: typeof(errors.company()) !== 'undefined' }" })
+                    @Html.WayfindingValidationMessageFor(m => m.Company, new { @data_bind = "text: errors.company" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Location, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Location, new { @class = "form-control", data_bind = "value: data.location, css: { error: typeof(errors.location()) !== 'undefined' }" })
+                    @Html.WayfindingValidationMessageFor(m => m.Location, new { @data_bind = "text: errors.location" })
+                </div>
+            </div>
+             <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <a href="@Url.Action("Index")" class="btn btn-default">Cancel</a>
+                    <button type="submit" class="btn btn-primary" data-bind="click: save">Save</button>
+                </div>
+            </div>
+            @Html.HiddenFor(m => m.NwLatitude, new { data_bind = "value: data.nwLatitude" })
+            @Html.HiddenFor(m => m.NwLongitude, new { data_bind = "value: data.nwLongitude" })
+            @Html.HiddenFor(m => m.SeLatitude, new { data_bind = "value: data.seLatitude" })
+            @Html.HiddenFor(m => m.SeLongitude, new { data_bind = "value: data.seLongitude" })
+        </div>
+    </section>
+
+    <section class="panel col-lg-6">
+        <header class="panel-heading">Map View</header>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Address, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Address, new { @class = "form-control", data_bind = "value: data.address, css: { error: typeof(errors.address()) !== 'undefined' }" })
+                    @Html.WayfindingValidationMessageFor(m => m.Address, new { @data_bind = "text: errors.address" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div id="map" style="height: 300px; width: 100%; border: 1px solid #ddd;"></div>
+            </div>
+           
+        </div>
+
+    </section>
+</form>
+
+

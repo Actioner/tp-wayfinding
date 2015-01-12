@@ -3,6 +3,7 @@ using System.Web.Security;
 using Simple.Data;
 using TP.Wayfinding.Site.Components.Services;
 using TP.Wayfinding.Site.Models;
+using TP.Wayfinding.Site.Models.Account;
 
 namespace TP.Wayfinding.Site.Controllers
 {
@@ -31,7 +32,7 @@ namespace TP.Wayfinding.Site.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -55,7 +56,7 @@ namespace TP.Wayfinding.Site.Controllers
                 : "";
 
             ViewBag.ReturnUrl = Url.Action("Manage");
-            return View(new ManageUserViewModel
+            return View(new ManageModel
             {
                 UserName = User.Identity.Name
             });
@@ -65,7 +66,7 @@ namespace TP.Wayfinding.Site.Controllers
         // POST: /Account/Manage
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Manage(ManageUserViewModel model)
+        public ActionResult Manage(ManageModel model)
         {
             ViewBag.ReturnUrl = Url.Action("Manage");
             if (ModelState.IsValid)

@@ -1,0 +1,41 @@
+﻿<aside>
+    <div id="sidebar" class="nav-collapse">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu">
+            <li class="sub-menu @(ViewBag.ControllerName == "building" ? "active" : string.Empty)">
+                <a href="javascript:;" class="">
+                    <i class="icon_house_alt"></i>
+                    <span>Buildings</span>
+                    <span class="menu-arrow @(ViewBag.ControllerName == "building" ? "arrow_carrot-down" : "arrow_carrot-right")"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="active" href="@Url.Action("Index", "Building")">List</a></li>
+                    <li><a class="" href="@Url.Action("Create", "Building")">Create</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu @(ViewBag.ControllerName == "room" ? "active" : string.Empty)">
+                <a href="javascript:;" class="">
+                    <i class="icon_book_alt"></i>
+                    <span>Rooms</span>
+                    <span class="menu-arrow @(ViewBag.ControllerName == "room" ? "arrow_carrot-down" : "arrow_carrot-right")"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="active" href="general.html">List</a></li>
+                    <li><a class="" href="buttons.html">Create</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu @(ViewBag.ControllerName == "people" ? "active" : string.Empty)">
+                <a href="javascript:;" class="">
+                    <i class="icon_contacts_alt"></i>
+                    <span>People</span>
+                    <span class="menu-arrow @(ViewBag.ControllerName == "people" ? "arrow_carrot-down" : "arrow_carrot-right")"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="active" href="general.html">List</a></li>
+                    <li><a class="" href="buttons.html">Create</a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- sidebar menu end-->
+    </div>
+</aside>

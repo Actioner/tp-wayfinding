@@ -216,6 +216,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\tiler.css" />
     <Content Include="Content\karmanta\assets\chart-master\Chart.js" />
     <Content Include="Content\karmanta\assets\chart-master\Chart.min.js" />
     <Content Include="Content\karmanta\assets\chart-master\docs\Chart.js" />
@@ -696,8 +697,87 @@
     <Content Include="Content\karmanta\js\scripts.js" />
     <Content Include="Content\karmanta\js\sliders.js" />
     <Content Include="Content\karmanta\js\sparkline-chart.js" />
+    <Content Include="Content\maps\IDB-0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\IDB-1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\IDB-10.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\IDB-11.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\IDB-12.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\IDB-2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\IDB-3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\IDB-4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\IDB-5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\IDB-6.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\IDB-7.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\IDB-8.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\IDB-9.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-10.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-11.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-12.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-6.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-7.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-8.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-9.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Site.css" />
-    <Content Include="Content\tiler.css" />
+    <Content Include="Content\tiler_orig.css" />
+    <Content Include="Content\uploader.css" />
     <Content Include="fonts\ElegantIcons.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -866,6 +946,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\tests\affineoverlay.js" />
+    <Content Include="Scripts\tests\hermite.js" />
     <Content Include="Scripts\tests\downloadcontrol.js" />
     <Content Include="Scripts\tests\d3overlay.js" />
     <Content Include="Scripts\tests\dot.js" />
@@ -876,12 +957,19 @@
     <Content Include="Scripts\tests\namespace.js" />
     <Content Include="Scripts\tests\opacitycontrol.js" />
     <Content Include="Scripts\tests\polylines.js" />
+    <Content Include="Scripts\tests\test.js" />
+    <Content Include="Scripts\tests\thumbnailer.js" />
+    <Content Include="Scripts\tests\transform-tracker.js" />
     <Content Include="Scripts\tests\transformedimage.js" />
     <Content Include="Scripts\tests\upload.js" />
+    <Content Include="Scripts\uploader.js" />
     <Content Include="Scripts\wayfinding\building.js" />
     <Content Include="Scripts\wayfinding\floor.js" />
+    <Content Include="Scripts\wayfinding\models.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -892,13 +980,19 @@
     <Compile Include="Components\AutoMapper\AutoMappingsCreator.cs" />
     <Compile Include="Components\Extensions\Formatting.cs" />
     <Compile Include="Components\Extensions\HtmlExtensions.cs" />
+    <Compile Include="Components\Extensions\ImageExtensions.cs" />
     <Compile Include="Components\Filters\ValidationActionFilter.cs" />
     <Compile Include="Components\Formatter\FormatExpression.cs" />
     <Compile Include="Components\Formatter\ITextExpression.cs" />
     <Compile Include="Components\Formatter\LiteralFormat.cs" />
     <Compile Include="Components\Formatter\NamedFormatter.cs" />
     <Compile Include="Components\Services\EncryptionService.cs" />
+    <Compile Include="Components\Services\FileManager.cs" />
+    <Compile Include="Components\Services\FileSystem.cs" />
     <Compile Include="Components\Services\IEncryptionService.cs" />
+    <Compile Include="Components\Services\IFileManager.cs" />
+    <Compile Include="Components\Services\IFileSystem.cs" />
+    <Compile Include="Components\Settings\GlobalSettings.cs" />
     <Compile Include="Components\Validators\Building\BuildingValidator.cs" />
     <Compile Include="Components\Validators\Building\EditBuildingValidator.cs" />
     <Compile Include="Components\Validators\Building\CreateBuildingValidator.cs" />
@@ -960,9 +1054,10 @@
     <Content Include="Views\Shared\EditorTemplates\EditBuildingModel.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CreateBuildingModel.cshtml" />
     <Content Include="Views\Floor\Create.cshtml" />
-    <Content Include="Views\Floor\Edit.cshtml" />
     <Content Include="Views\Floor\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CreateFloorModel.cshtml" />
+    <Content Include="Views\Home\Tiler\Test.cshtml" />
+    <Content Include="Views\Floor\View.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

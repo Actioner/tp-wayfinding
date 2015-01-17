@@ -9,7 +9,11 @@ using AutoMapper;
 using Simple.Data;
 using TP.Wayfinding.Domain;
 using TP.Wayfinding.Site.Components.Filters;
+using TP.Wayfinding.Site.Components.Services;
 using TP.Wayfinding.Site.Models.Floor;
+using TP.Wayfinding.Site.Components.Extensions;
+using System.Drawing.Imaging;
+using TP.Wayfinding.Site.Components.Settings;
 
 namespace TP.Wayfinding.Site.Controllers.Api
 {
@@ -41,10 +45,16 @@ namespace TP.Wayfinding.Site.Controllers.Api
         [ValidationActionFilter]
         public IHttpActionResult Post([FromBody]CreateFloorModel value)
         {
+            var fileManager = new FileManager(new FileSystem(), GlobalSettings.MapsFolder);
             var floor = MappingEngine.Map<FloorMap>(value);
             var db = Database.Open();
+            Building building = db.Building.Get(floor.BuildingId);
+            floor.ImagePath = string.Format("{0}-{1}-{2}.png", building.Name, floor.BuildingId, floor.Floor);
 
-            floor = db.FloorMap.Insert(floor);     
+            floor = db.FloorMap.Insert(floor);
+
+            fileManager.SaveImage(value.Image.Base64ToImage(), floor.ImagePath, ImageFormat.Png);
+            
             return Ok(MappingEngine.Map<FloorModel>(floor));
         }
 
@@ -52,6 +62,7 @@ namespace TP.Wayfinding.Site.Controllers.Api
         [ValidationActionFilter]
         public IHttpActionResult Put(int id, [FromBody]EditFloorModel value)
         {
+            var fileManager = new FileManager(new FileSystem(), GlobalSettings.MapsFolder);
             var db = Database.Open();
             FloorMap floor = db.FloorMap.Get(id);
 
@@ -60,15 +71,21 @@ namespace TP.Wayfinding.Site.Controllers.Api
 
             value.Id = id;
             MappingEngine.Map(value, floor);
-
             db.FloorMap.Update(floor);
+
+            fileManager.Delete(floor.ImagePath);
+            fileManager.SaveImage(value.Image.Base64ToImage(), floor.ImagePath, ImageFormat.Png);
+
             return Ok(MappingEngine.Map<FloorModel>(floor));
         }
 
         // DELETE api/floor/5
         public IHttpActionResult Delete(int id)
         {
+            var fileManager = new FileManager(new FileSystem(), GlobalSettings.MapsFolder);
             var db = Database.Open();
+            FloorMap floor = db.FloorMap.Get(id);
+            fileManager.Delete(floor.ImagePath);
             var floors = db.FloorMap.DeleteByFloorMapId(id);
 
             return Ok(id);

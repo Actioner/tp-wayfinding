@@ -1,6 +1,9 @@
-﻿function DeleteConfirm() {
+﻿function DeleteConfirm(title) {
     var self = this;
     self.onConfirm = null;
+    self.title = title;
+
+    $('#deleteConfirm .modal-title').text(self.title);
 
     $('#deleteConfirm').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); // Button that triggered the modal

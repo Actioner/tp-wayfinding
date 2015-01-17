@@ -1,54 +1,83 @@
-// Copyright 2011 Google
-
-/**
- * @license
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/**
- * @author Chris Broadfoot (cbro@google.com)
- */
-
-/**
- * Controls the opacity of an AffineOverlay.
- *
- * @constructor
- * @param {overlaytiler.AffineOverlay} affineOverlay  the overlay to control.
- */
-overlaytiler.DownloadControl = function(affineOverlay, canvas) {
+overlaytiler.DownloadControl = function (affineOverlay) {
     var el = this.el_ = document.createElement('a');
     el.text = 'download tile';
-    el.canvas = canvas;
     el.download = 'sosgroso.png';
     el.onclick = this.onClick_.bind(this);
 
     this.affineOverlay = affineOverlay;
 };
 
-/**
- * Called whenever the slider is moved.
- * @private
- */
 overlaytiler.DownloadControl.prototype.onClick_ = function () {
-    var dt = this.el_.canvas.toDataURL('image/png');
-    this.el_.href = dt;
+    var Point = function (x, y) {
+        var self = this;
+        self.x = x;
+        self.y = y;
+
+        self.toString = function () {
+            return (self.x + ", " + self.y);
+        };
+
+        self.add = function (Point) {
+            self.x += Point.x;
+            self.y += Point.y;
+        };
+    };
+
+    var img = this.affineOverlay.getOrigImg();
+    var resultMatrix = this.affineOverlay.ctx.transform.getMatrix();
+    console.log("matrix: ", JSON.stringify(resultMatrix));
+
+    var tmpCanvas = document.createElement('canvas');
+    var tmpContext = tmpCanvas.getContext('2d');
+
+    var scHor = resultMatrix[0];
+    var skHor = resultMatrix[1];
+    var skVer = resultMatrix[2];
+    var scVer = resultMatrix[3];
+    var moHor = resultMatrix[4];
+    var moVer = resultMatrix[5];
+
+    var topLeft = new Point(moHor, moVer);
+    var topRight = new Point(scHor * img.width + moHor, skHor * img.width + moVer);
+    var bottomLeft = new Point(skVer * img.height + moHor, scVer * img.height + moVer);
+    var bottomRight = new Point((scHor * img.width) + (skVer * img.height) + moHor, (skHor * img.width) + (scVer * img.height) + moVer);
+    var resultTopLeft = new Point(Math.min(topLeft.x, topRight.x, bottomLeft.x, bottomRight.x), Math.min(bottomLeft.y, bottomRight.y, topLeft.y, topRight.y));
+    var resultBottomRight = new Point(Math.max(topLeft.x, topRight.x, bottomLeft.x, bottomRight.x), Math.max(bottomLeft.y, bottomRight.y, topLeft.y, topRight.y));
+    var offset = new Point(resultTopLeft.x < 0 ? Math.abs(resultTopLeft.x) : 0, resultTopLeft.y < 0 ? Math.abs(resultTopLeft.y) : 0);
+    topLeft.add(offset);
+    topRight.add(offset);
+    bottomLeft.add(offset);
+    bottomRight.add(offset);
+    resultTopLeft.add(offset);
+    resultBottomRight.add(offset);
+
+    console.log("resultTopLeft: ", resultTopLeft.toString());
+    console.log("resultBottomRight: ", resultBottomRight.toString());
+
+    var mapTopLeft = this.affineOverlay.getTopLeftPoint_();
+    var mapBottomRight = this.affineOverlay.getBottomRightPoint_();
+    console.log("mapTopLeft", ": ", mapTopLeft.x, ", ", mapTopLeft.y);
+    console.log("mapBottomRight", ": ", mapBottomRight.x, ", ", mapBottomRight.y);
+
+    var proj = this.affineOverlay.getProjection();
+    console.log(proj.fromDivPixelToLatLng(new google.maps.Point(mapTopLeft.x, mapTopLeft.y)));
+    console.log(proj.fromDivPixelToLatLng(new google.maps.Point(mapBottomRight.x, mapBottomRight.y)));
+
+    return false;
+    tmpCanvas.width = resultBottomRight.x;
+    tmpCanvas.height = resultBottomRight.y;
+    tmpContext.setTransform(scHor, skHor, skVer, scVer, offset.x + moHor, offset.y + moVer);
+    tmpContext.drawImage(img, 0, 0, img.width, img.height);
+
+    var resultCanvas = document.createElement('canvas');
+    resultCanvas.width = resultBottomRight.x - resultTopLeft.x;
+    resultCanvas.height = resultBottomRight.y - resultTopLeft.y;
+    var resultContext = resultCanvas.getContext('2d');
+    resultContext.drawImage(tmpCanvas, resultTopLeft.x, resultTopLeft.y, resultCanvas.width, resultCanvas.height, 0, 0, resultCanvas.width, resultCanvas.height);
+
+    this.el_.href = resultCanvas.toDataURL('image/png');
 };
 
-/**
- * Returns the Element, suitable for adding to controls on a map.
- * @return {Element}  the Element.
- */
 overlaytiler.DownloadControl.prototype.getElement = function() {
   return this.el_;
 };

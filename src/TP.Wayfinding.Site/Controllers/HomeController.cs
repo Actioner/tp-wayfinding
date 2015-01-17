@@ -26,8 +26,6 @@ namespace TP.Wayfinding.Site.Controllers
 
         public ActionResult Graph()
         {
-
-            throw new Exception();
             return View();
         }
         
@@ -39,6 +37,11 @@ namespace TP.Wayfinding.Site.Controllers
         public ActionResult EditTiler()
         {
             return View("Tiler/Edit");
+        }
+
+        public ActionResult TestTiler()
+        {
+            return View("Tiler/Test");
         }
     }
 }

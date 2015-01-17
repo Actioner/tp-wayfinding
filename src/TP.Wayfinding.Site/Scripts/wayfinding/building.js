@@ -1,15 +1,4 @@
-﻿function Building() {
-    var self = this;
-    self.id = ko.observable();
-    self.name = ko.observable();
-    self.location = ko.observable();
-    self.company = ko.observable();
-    self.address = ko.observable();
-    self.nwLatitude = ko.observable();
-    self.nwLongitude = ko.observable();
-    self.seLatitude = ko.observable();
-    self.seLongitude = ko.observable();
-}
+﻿
 
 function AddressMap() {
     var self = this
@@ -154,8 +143,6 @@ function ViewModel() {
 $(function () {
     var vm = new ViewModel();
     ko.applyBindings(vm);
-
-    
 
     if ($.QueryString['create']) {
         window.notifyCreate();

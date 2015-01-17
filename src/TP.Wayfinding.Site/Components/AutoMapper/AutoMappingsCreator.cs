@@ -10,6 +10,10 @@ using TP.Wayfinding.Resources;
 using TP.Wayfinding.Domain;
 using TP.Wayfinding.Site.Models.Building;
 using TP.Wayfinding.Site.Models.Floor;
+using TP.Wayfinding.Site.Components.Settings;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace TP.Wayfinding.Site.Components.AutoMapper
 {
@@ -34,12 +38,31 @@ namespace TP.Wayfinding.Site.Components.AutoMapper
 
             Mapper.CreateMap<FloorMap, FloorListModel>()
               .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.FloorMapId));
+             Mapper.CreateMap<FloorMap, FloorModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.FloorMapId))
+                .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(src => string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority, GlobalSettings.MapsFolder.Replace("~", "") + src.ImagePath)))
+                .ForMember(dest => dest.Image, opt => opt.ResolveUsing((src) =>
+                {
+                    if (string.IsNullOrEmpty(src.ImagePath)) 
+                    {
+                        return null;
+                    }
 
-            Mapper.CreateMap<FloorMap, FloorModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.FloorMapId));
+                    string filename = HttpContext.Current.Server.MapPath(Path.Combine(GlobalSettings.MapsFolder, src.ImagePath));
+                    if (!File.Exists(filename))
+                    {
+                        return null;
+                    }
+
+                    var image = Image.FromFile(filename);
+
+                    return image.ImageToBase64(ImageFormat.Png);
+                })); 
+
             Mapper.CreateMap<FloorModel, FloorMap>()
                 .ForMember(dest => dest.FloorMapId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Coordinates, opt => opt.Ignore())
+                .ForMember(dest => dest.ImagePath, opt => opt.Ignore())
                 .ForMember(dest => dest.ImageFolder, opt => opt.Ignore());
                 
             Mapper.AssertConfigurationIsValid();        

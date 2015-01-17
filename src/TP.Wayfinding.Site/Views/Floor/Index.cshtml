@@ -23,8 +23,8 @@
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-primary" data-bind="attr: { href: '/Floor/Create?buildingId=' + $data.buildingId() }"><i class="icon_plus_alt2"></i></a>
-                                <a class="btn btn-success" data-bind="attr: { href: '/Floor/Edit/' + $data.id() }"><i class="icon_check_alt2"></i></a>
-                                <a class="btn btn-danger" data-toggle="modal" href="#deleteConfirm" data-bind="attr: { 'data-deleteurl': 'api/Floor/' + $data.id() }"><i class="icon_close_alt2"></i></a>
+                                <a class="btn btn-success" data-bind="attr: { href: '/Floor/View/' + $data.id() }"><i class="icon_check_alt2"></i></a>
+                                <a class="btn btn-danger" data-toggle="modal" href="#deleteConfirm" data-bind="attr: { 'data-deleteurl': '/api/Floor/' + $data.id() }"><i class="icon_close_alt2"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -46,7 +46,7 @@
         }
 
         $(function () {
-            var deleteConfirm = new DeleteConfirm();
+            var deleteConfirm = new DeleteConfirm('Delete Floor');
 
             var getModels = function () {
                 loading.show();

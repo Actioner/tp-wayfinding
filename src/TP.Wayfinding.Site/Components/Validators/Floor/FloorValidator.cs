@@ -30,6 +30,10 @@ namespace TP.Wayfinding.Site.Components.Validators.Floor
                .Cascade(CascadeMode.StopOnFirstFailure)
                .NotEmpty()
                .GreaterThan(0);
+
+            RuleFor(x => x.Image)
+              .Cascade(CascadeMode.StopOnFirstFailure)
+              .NotEmpty();
         }
 
         private bool BeUnique(T model)

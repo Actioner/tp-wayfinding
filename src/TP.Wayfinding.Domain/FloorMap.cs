@@ -11,6 +11,11 @@ namespace TP.Wayfinding.Domain
         public string Description { get; set; }
         public int Floor { get; set; }
         public string ImagePath { get; set; }
+        public float NeLatitude { get; set; }
+        public float NeLongitude { get; set; }
+        public float SwLatitude { get; set; }
+        public float SwLongitude { get; set; }
+
         public IList<Coordinate> Coordinates { get; set; }
 
 

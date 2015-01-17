@@ -61,7 +61,7 @@ overlaytiler.TransformedImage.prototype.draw = function(ctx) {
   var tb = (x3 - x2) / h;
   var te = (y3 - y2) / h;
 
-  ctx.setTransform(ta, td, tb, te, tc, tf);
+  ctx.transform.setMatrix([ta, td, tb, te, tc, tf]);
   ctx.drawImage(this.img_, 0, 0, w, h);
 };
 

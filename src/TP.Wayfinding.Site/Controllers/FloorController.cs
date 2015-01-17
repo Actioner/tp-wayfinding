@@ -24,7 +24,7 @@ namespace TP.Wayfinding.Site.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int id)
+        public ActionResult View(int id)
         {
             return View(new EditFloorModel {
                 Id = id

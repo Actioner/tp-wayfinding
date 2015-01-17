@@ -1,5 +1,5 @@
-﻿html, body, #map {
-  height: 100%;
+﻿#map {
+  height: 400px;
   margin: 0;
   font-family: sans-serif;
 }
@@ -8,16 +8,16 @@
   background: rgba(255, 255, 255, 0.8);
   position: absolute;
   border: 3px red groove;
-  height: 6px;
-  width: 6px;
+  height: 15px;
+  width: 15px;
   margin-left: -6px;
   margin-top: -6px;
   border-radius: 6px;
   -webkit-user-select: ignore !important;
 }
 .mover {
-  height: 12px;
-  width: 12px;
+  height: 20px;
+  width: 20px;
   margin-left: -12px;
   margin-top: -12px;
   border-radius: 12px;
@@ -27,14 +27,4 @@
 }
 .dot:active {
   border-color: blue;
-}
-#upload-map {
-  height: 300px;
-  width: 600px;
-}
-#gdal-command {
-  padding: 5px;
-  background: white;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 5px;
 }

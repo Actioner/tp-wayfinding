@@ -74,11 +74,16 @@ if (!window.notifyUpdate) {
         window.notify('Update Successful!', '');
     };
 }
-
     
 if (!window.notifyCreate) {
     window.notifyCreate = function (title, text) {
         window.notify('Create Successful!', '');
+    };
+}
+
+if (!window.notifyDelete) {
+    window.notifyDelete = function (title, text) {
+        window.notify('Delete Successful!', '');
     };
 }
 

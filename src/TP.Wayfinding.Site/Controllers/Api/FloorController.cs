@@ -86,7 +86,7 @@ namespace TP.Wayfinding.Site.Controllers.Api
             var db = Database.Open();
             FloorMap floor = db.FloorMap.Get(id);
             fileManager.Delete(floor.ImagePath);
-            var floors = db.FloorMap.DeleteByFloorMapId(id);
+            db.FloorMap.DeleteByFloorMapId(id);
 
             return Ok(id);
         }

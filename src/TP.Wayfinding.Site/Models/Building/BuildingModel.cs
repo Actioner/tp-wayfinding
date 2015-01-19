@@ -12,6 +12,7 @@ namespace TP.Wayfinding.Site.Models.Building
         public string Location { get; set; }
         public string Company { get; set; }
         public string Address { get; set; }
+        public string LastUpdated { get; set; }
 
         public float NwLatitude { get; set; }
         public float NwLongitude { get; set; }

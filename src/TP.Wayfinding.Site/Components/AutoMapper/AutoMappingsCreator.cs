@@ -14,6 +14,8 @@ using TP.Wayfinding.Site.Components.Settings;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+using TP.Wayfinding.Site.Models.Office;
+using TP.Wayfinding.Site.Models.OfficeType;
 
 namespace TP.Wayfinding.Site.Components.AutoMapper
 {
@@ -26,9 +28,6 @@ namespace TP.Wayfinding.Site.Components.AutoMapper
             Mapper.CreateMap<decimal?, string>().ConvertUsing(new NullableTypeToStringConverter<decimal>("n"));
             Mapper.CreateMap<DateTime?, string>().ConvertUsing(new NullableTypeToStringConverter<DateTime>(CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern));
 
-            Mapper.CreateMap<Building, BuildingListModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.BuildingId));
-
             Mapper.CreateMap<Building, BuildingModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.BuildingId));
             Mapper.CreateMap<BuildingModel, Building>()
@@ -36,8 +35,23 @@ namespace TP.Wayfinding.Site.Components.AutoMapper
                 .ForMember(dest => dest.FloorMaps, opt => opt.Ignore())
                 .ForMember(dest => dest.LastUpdated, opt => opt.Ignore());
 
+            Mapper.CreateMap<Office, OfficeModel>()
+               .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.OfficeId));
+            Mapper.CreateMap<OfficeModel, Office>()
+                .ForMember(dest => dest.OfficeId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Detail, opt => opt.Ignore())
+                .ForMember(dest => dest.Type, opt => opt.Ignore())
+                .ForMember(dest => dest.FloorMap, opt => opt.Ignore())
+                .ForMember(dest => dest.Status, opt => opt.Ignore());
+
+            Mapper.CreateMap<OfficeType, OfficeTypeModel>()
+              .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.OfficeTypeId));
+            Mapper.CreateMap<OfficeTypeModel, OfficeType>()
+                .ForMember(dest => dest.OfficeTypeId, opt => opt.MapFrom(src => src.Id));
+
             Mapper.CreateMap<FloorMap, FloorListModel>()
-              .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.FloorMapId));
+              .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.FloorMapId))
+                .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(src => string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority, GlobalSettings.MapsFolder.Replace("~", "") + src.ImagePath)));
              Mapper.CreateMap<FloorMap, FloorModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.FloorMapId))
                 .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(src => string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority, GlobalSettings.MapsFolder.Replace("~", "") + src.ImagePath)))

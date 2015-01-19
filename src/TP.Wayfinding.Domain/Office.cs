@@ -8,13 +8,15 @@ namespace TP.Wayfinding.Domain
         public int OfficeId { get; set; }
         public string DisplayName { get; set; }
         public string OfficeNumber { get; set; }
-        public int TypeId { get; set; }
+        public int OfficeType { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public int FloorMapId { get; set; }
-        public OfficeType Type { get; set; }
-        public string Status { get; set; }
+        public bool Manual { get; set; }
+
         public string Detail { get; set; }
+        public string Status { get; set; }
+        public OfficeType Type { get; set; }
         public FloorMap FloorMap { get; set; }
 
         //public  Coordinate GetCoordinate()

@@ -216,4 +216,13 @@
   <data name="Floor" xml:space="preserve">
     <value>Floor</value>
   </data>
+  <data name="Office" xml:space="preserve">
+    <value>Office</value>
+  </data>
+  <data name="OfficeType" xml:space="preserve">
+    <value>Office Type</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
 </root>

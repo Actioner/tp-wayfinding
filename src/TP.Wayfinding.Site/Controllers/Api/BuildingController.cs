@@ -21,7 +21,7 @@ namespace TP.Wayfinding.Site.Controllers.Api
             var db = Database.Open();
             var buildings = db.Building.All().ToList<Building>();
 
-            return Ok(MappingEngine.Map<IList<BuildingListModel>>(buildings));
+            return Ok(MappingEngine.Map<IList<BuildingModel>>(buildings));
         }
 
         // GET api/building/5
@@ -70,7 +70,7 @@ namespace TP.Wayfinding.Site.Controllers.Api
         public IHttpActionResult Delete(int id)
         {
             var db = Database.Open();
-            var buildings = db.Building.DeleteByBuildingId(id);
+            db.Building.DeleteByBuildingId(id);
 
             return Ok(id);
         }

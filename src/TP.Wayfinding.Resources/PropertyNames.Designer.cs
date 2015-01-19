@@ -88,6 +88,15 @@ namespace TP.Wayfinding.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Code.
+        /// </summary>
+        public static string Code {
+            get {
+                return ResourceManager.GetString("Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company.
         /// </summary>
         public static string Company {
@@ -219,6 +228,24 @@ namespace TP.Wayfinding.Resources {
         public static string NWLongitude {
             get {
                 return ResourceManager.GetString("NWLongitude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Office.
+        /// </summary>
+        public static string Office {
+            get {
+                return ResourceManager.GetString("Office", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Office Type.
+        /// </summary>
+        public static string OfficeType {
+            get {
+                return ResourceManager.GetString("OfficeType", resourceCulture);
             }
         }
         

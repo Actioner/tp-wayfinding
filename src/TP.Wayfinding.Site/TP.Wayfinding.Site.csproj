@@ -964,6 +964,7 @@
     <Content Include="Scripts\tests\upload.js" />
     <Content Include="Scripts\uploader.js" />
     <Content Include="Scripts\wayfinding\building.js" />
+    <Content Include="Scripts\wayfinding\office.js" />
     <Content Include="Scripts\wayfinding\floor.js" />
     <Content Include="Scripts\wayfinding\models.js" />
     <Content Include="Scripts\_references.js" />
@@ -996,6 +997,12 @@
     <Compile Include="Components\Validators\Building\BuildingValidator.cs" />
     <Compile Include="Components\Validators\Building\EditBuildingValidator.cs" />
     <Compile Include="Components\Validators\Building\CreateBuildingValidator.cs" />
+    <Compile Include="Components\Validators\OfficeType\CreateOfficeTypeValidator.cs" />
+    <Compile Include="Components\Validators\OfficeType\EditOfficeTypeValidator.cs" />
+    <Compile Include="Components\Validators\OfficeType\OfficeTypeValidator.cs" />
+    <Compile Include="Components\Validators\Office\CreateOfficeValidator.cs" />
+    <Compile Include="Components\Validators\Office\EditOfficeValidator.cs" />
+    <Compile Include="Components\Validators\Office\OfficeValidator.cs" />
     <Compile Include="Components\Validators\Floor\FloorValidator.cs" />
     <Compile Include="Components\Validators\Floor\CreateFloorValidator.cs" />
     <Compile Include="Components\Validators\Floor\EditFloorValidator.cs" />
@@ -1004,9 +1011,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\BaseApiController.cs" />
     <Compile Include="Controllers\Api\BuildingController.cs" />
+    <Compile Include="Controllers\Api\OfficeTypeController.cs" />
+    <Compile Include="Controllers\Api\OfficeController.cs" />
     <Compile Include="Controllers\Api\FloorController.cs" />
     <Compile Include="Controllers\BuildingController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\OfficeController.cs" />
     <Compile Include="Controllers\FloorController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1015,10 +1025,16 @@
     </Compile>
     <Compile Include="Models\Account\ManageModel.cs" />
     <Compile Include="Models\Account\LoginModel.cs" />
-    <Compile Include="Models\Building\BuildingListModel.cs" />
     <Compile Include="Models\Building\BuildingModel.cs" />
     <Compile Include="Models\Building\CreateBuildingModel.cs" />
     <Compile Include="Models\Building\EditBuildingModel.cs" />
+    <Compile Include="Models\OfficeType\CreateOfficeTypeModel.cs" />
+    <Compile Include="Models\OfficeType\EditOfficeTypeModel.cs" />
+    <Compile Include="Models\OfficeType\OfficeTypeModel.cs" />
+    <Compile Include="Models\Office\CreateOfficeModel.cs" />
+    <Compile Include="Models\Office\EditOfficeModel.cs" />
+    <Compile Include="Models\Office\OfficeModel.cs" />
+    <Compile Include="Models\Office\OfficeSearchModel.cs" />
     <Compile Include="Models\Floor\FloorSearchModel.cs" />
     <Compile Include="Models\Floor\FloorListModel.cs" />
     <Compile Include="Models\Floor\FloorModel.cs" />
@@ -1058,6 +1074,7 @@
     <Content Include="Views\Shared\EditorTemplates\CreateFloorModel.cshtml" />
     <Content Include="Views\Home\Tiler\Test.cshtml" />
     <Content Include="Views\Floor\View.cshtml" />
+    <Content Include="Views\Office\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

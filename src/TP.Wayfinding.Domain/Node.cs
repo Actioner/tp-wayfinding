@@ -8,12 +8,17 @@ namespace TP.Wayfinding.Domain
 {
     public class Node
     {
-        public string Identifier { get; set; }
-        public int FloorMapId { get; set; }
         public int NodeId { get; set; }
+        public int FloorMapId { get; set; }
+        public string Identifier { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public bool FloorConnector { get; set; }
+
+        public Node()
+        {
+        }
+
         public Node(string identifier, double latitude, double longitude)
         {
             this.Identifier = identifier;

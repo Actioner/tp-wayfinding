@@ -12,10 +12,16 @@ namespace TP.Wayfinding.Domain
         public int FloorMapId { get; set; }
         public int NodeAId { get; set; }
         public int NodeBId { get; set; }
-        public Node NodeA { get; set; }
-        public Node NodeB { get; set; }
         public bool Show { get; set; }
         public bool FloorConnection { get; set; }
+
+        public Node NodeA { get; set; }
+        public Node NodeB { get; set; }
+
+        public Connection()
+        {
+
+        }
 
         private double _weight;
         public double Weight

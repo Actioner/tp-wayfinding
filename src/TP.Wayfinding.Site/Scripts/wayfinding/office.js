@@ -1,6 +1,6 @@
 ﻿function OfficeManager() {
     var self = this;
-    self.form = $('#officeForm');
+    self.form = $('#placeTmpl');
 
     self.isValid = function () {
         return self.form.valid();
@@ -51,45 +51,62 @@
 
 };
 
-function OfficePoint(office, map) {
+function OfficePoint(office, officeMap) {
     var self = this;
     self.office = office;
-    self.map_ = map;
-    self.selected = false;
+    self.officeMap = officeMap
+    self.isSelected = ko.observable(false);
+    self.isNew = ko.computed(function () {
+        return !self.office.id() || self.office.id() == 0;
+    });
+    self.infoWindow_ = new window.google.maps.InfoWindow({
+        content: '<div id="infoPlaceholder" style="width:289px; height:277px"></div>'
+    });
+
+    self.tmpl_ = $("#placeTmpl");
 
     self.marker_ = new google.maps.Marker({
-        position: new google.maps.LatLng(office.latitude(), office.longitude()),
-        title: office.displayName(),
-        map: self.map_,
+        title: self.office.displayName(),
         draggable: false
     });
+
+    self.openInfoReady = function () {
+        var placeholder = $("#infoPlaceholder");
+        self.tmpl_.appendTo(placeholder);
+    };
+
+
+    self.closeInfoReady = function () {
+        self.tmpl_.appendTo("#tmplContainer");
+
+    };
+
+    //Add a listener
+    google.maps.event.addListener(self.infoWindow_, 'domready', self.openInfoReady);
+
+    google.maps.event.addListener(self.infoWindow_, "closeclick", self.closeInfoReady);
 
     self.clearMarker = function () {
         self.marker_.setMap(null);
     };
 
-    self.postClickEvent = null;
-    self.postDragendEvent = null;
-    self.postRightClickEvent = null;
-
-    self.toggle = function () {
-        self.selected = !self.selected;
-        if (self.selected){
+    self.isSelected.subscribe(function (sel) {
+        if (sel) {
             self.marker_.setIcon('https://mts.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-blue.png');
+            self.infoWindow_.open(self.officeMap.getMap(), self.marker_);
         }
         else {
             self.marker_.setIcon('https://mts.googleapis.com/vt/icon/name=icons/spotlight/spotlight-poi.png');
+            self.closeInfoReady();
+            self.infoWindow_.close();
         }
-        self.marker_.setDraggable(self.selected);
 
-    };
+        self.marker_.setDraggable(sel);
+    });
+
 
     google.maps.event.addListener(self.marker_, 'click', function () {
-        self.toggle();
-
-        if (isFunction(self.postClickEvent)) {
-            self.postClickEvent(self);
-        }
+        officeMap.toggle(self);
     });
 
     google.maps.event.addListener(self.marker_, 'dragend', function () {
@@ -97,108 +114,136 @@ function OfficePoint(office, map) {
         self.office.latitude(pos.lat());
         self.office.longitude(pos.lng());
 
-        if (isFunction(self.postDragendEvent)) {
-            self.postDragendEvent(self);
-        }
-    }.bind(this));
+        officeMap.officeSave(self.office);
+    });
 
- 
+
     google.maps.event.addListener(self.marker_, 'rightclick', function () {
         self.clearMarker();
 
-        if (isFunction(self.postRightClickEvent)) {
-            self.postRightClickEvent(self);
-        }
+        officeMap.officeDelete(self);
     });
+
+    self.init = function () {
+        var position = new google.maps.LatLng(self.office.latitude(), self.office.longitude());
+        self.marker_.setPosition(position);
+        self.marker_.setMap(self.officeMap.getMap())
+    };
 }
 
 
 function OfficeMap() {
     var self = this;
-    self.floorMapId = 0;
-    self.selected = new Office();
+    self.floorMapId = ko.observable(0);
     self.errors = new Office();
     self.officeManager = new OfficeManager();
     self.officePoints = ko.observableArray([]);
+
+    self.createOffice = function () {
+        var newOffice = new Office();
+        newOffice.floorMapId(self.floorMapId());
+
+        return newOffice;
+    };
+
+    self.getMap = function () {
+        return self.map_;
+    };
+
+    self.selectedPoint = ko.computed(function () {
+        var selectedOfficePoint;
+        for (var i = 0; i < self.officePoints().length; i++) {
+            selectedOfficePoint = self.officePoints()[i];
+            if (selectedOfficePoint.isSelected()) {
+                return selectedOfficePoint;
+            }
+        };
+
+        return new OfficePoint(self.createOffice(), self);
+    });
+
     self.overlay_ = null;
+    self.overlayCreateListener_ = null;
+
     self.map_ = new google.maps.Map(document.getElementById('map'), {
         mapTypeId: 'roadmap',
         center: new google.maps.LatLng(0, 0),
-        zoom: 3
+        zoom: 3,
+        panControl: false,
+        zoomControl: true,
+        scaleControl: false,
+        streetViewControl: false,
+        overviewMapControl: false,
+        mapTypeControl: false
     });
 
-    self.officePointClick = function (officePoint) {
-        self.selected.clear();
-        self.selected.floorMapId(self.floorMapId);
+    self.toggle = function (officePoint) {
+        if (officePoint.office.id() != self.selectedPoint().office.id())
+            self.selectedPoint().isSelected(false);
+        officePoint.isSelected(!officePoint.isSelected());
+    };
 
-        self.errors.clear();
-        if (officePoint.selected) {
-            self.clearPreviousSelectedOfficePoint(officePoint);
-            self.selected.copyFrom(officePoint.office);
+    self.officeCancel = function () {
+        var officePoint = self.selectedPoint();
+        if (officePoint.isNew()) {
+            self.officePoints.pop();
+            officePoint.isSelected(false);
+            officePoint.clearMarker();
+            self.attachCreateListener();
+        }
+        else {
+            officePoint.isSelected(false);
         }
     };
 
-    self.officePointDragEnd = function (officePoint) {
-        self.selected.latitude(officePoint.office.latitude());
-        self.selected.longitude(officePoint.office.longitude());
-        officePoint.office.copyFrom(self.selected);
+    self.officeDelete = function (officePoint) {
+        self.officeManager.delete(officePoint.office);
     };
 
-    self.officeRightClick = function (officePoint) {
-        self.officeDelete(officePoint.office);
+    self.officeSave = function (office) {
+        self.officeManager.save(office, self.errors);
     };
 
-    self.officeDelete = function (office) {
-        self.officeManager.delete(office);
-
-        self.selected.clear();
-        self.selected.floorMapId(self.floorMapId);
-        self.errors.clear();
-    };
-
-    self.officeSave = function () {
-        self.officeManager.save(self.selected, self.errors);
-
-        self.selected.clear();
-        self.selected.floorMapId(self.floorMapId);
-        self.errors.clear();
-    };
-
-
-    self.officeCreate = function () {
+    self.officeCreate = function (office) {
         if (!self.officeManager.isValid()) {
             return;
         }
 
-        var newOffice = new Office();
-        var pos = self.overlay_.getBounds().getCenter();
-        self.selected.latitude(pos.lat());
-        self.selected.longitude(pos.lng());
-        newOffice.copyFrom(self.selected);
-        self.officeManager.save(newOffice, self.errors, self.selected);
+        self.officeManager.save(office, self.errors);
+        self.attachCreateListener();
+    };
 
-        var officePoint = self.addOfficePoint(newOffice);
-        officePoint.toggle();
+    self.detachCreateListener = function () {
+        if (self.overlayCreateListener_ == null)
+            return;
+
+        google.maps.event.removeListener(self.overlayCreateListener_);
+        self.overlayCreateListener_ = null;
+    };
+
+    self.attachCreateListener = function () {
+        if (self.overlayCreateListener_ != null)
+            return;
+
+        self.overlayCreateListener_ = google.maps.event.addListener(self.overlay_, 'click', self.preOfficeCreate);
     };
 
 
-    self.clearPreviousSelectedOfficePoint = function (current) {
-        var selectedOfficePoint;
-        for (var i = 0; i < self.officePoints().length; i++) {
-            selectedOfficePoint = self.officePoints()[i];
-            if (selectedOfficePoint.selected && selectedOfficePoint.office.id() != current.office.id()) {
-                selectedOfficePoint.toggle();
-            }
-        };
+    self.preOfficeCreate = function (event) {
+        var newOfficePoint = new OfficePoint(self.createOffice(), self);
+        newOfficePoint.office.latitude(event.latLng.lat());
+        newOfficePoint.office.longitude(event.latLng.lng());
+        newOfficePoint.init();
+        self.officePoints.push(newOfficePoint);
+
+        self.toggle(newOfficePoint);
+        self.detachCreateListener();
     };
 
     self.clearMap = function () {
         for (var i = 0; i < self.officePoints().length; i++) {
             self.officePoints()[i].clearMarker();
         }
-        self.selected.clear();
-        self.selected.floorMapId(self.floorMapId);
-        self.errors.clear();
         self.officePoints([]);
 
         if (self.overlay_ != null)
@@ -206,11 +251,8 @@ function OfficeMap() {
     };
 
     self.addOfficePoint = function (office) {
-        var officePoint = new OfficePoint(office, self.map_);
-
-        officePoint.postClickEvent = self.officePointClick;
-        officePoint.postDragendEvent = self.officePointDragEnd;
-        officePoint.postRightClickEvent = self.officeRightClick;
+        var officePoint = new OfficePoint(office, self);
+        officePoint.init();
         self.officePoints.push(officePoint);
 
         return officePoint;
@@ -231,6 +273,8 @@ function OfficeMap() {
         self.overlay_.setMap(self.map_);
         self.map_.fitBounds(bounds);
 
+        self.attachCreateListener();
+
         if (offices.length > 0) {
             for (var i = 0; i < offices.length; i++) {
                 var office = new Office();
@@ -239,11 +283,6 @@ function OfficeMap() {
                 self.addOfficePoint(office);
             }
         }
-    };
-
-
-    self.init = function () {
-        
     };
 }
 
@@ -307,18 +346,17 @@ function ViewModel() {
     self.officeMap = new OfficeMap();
     self.searchModel = new SearchModel();
     self.officeManager = new OfficeManager();
-    
+
     self.officeTypes = ko.observableArray([]);
-      
+
     self.searchModel.offices.subscribe(function (offices) {
-     
         this.officeMap.clearMap();
 
-        if (this.searchModel.selectedFloorId() === 0)
+        if (!this.searchModel.selectedFloorId() || this.searchModel.selectedFloorId() === 0)
             return;
 
-        this.officeMap.selected.floorMapId(self.searchModel.selectedFloorId());
-        this.officeMap.floorMapId = self.searchModel.selectedFloorId();
+        //this.officeMap.selected().floorMapId(self.searchModel.selectedFloorId());
+        this.officeMap.floorMapId(self.searchModel.selectedFloorId());
         var building = self.searchModel.selectedBuilding();
         var floor = self.searchModel.selectedFloor();
 
@@ -339,7 +377,6 @@ function ViewModel() {
     self.init = function () {
         self.searchModel.getBuildings();
         self.getOfficeTypes();
-        self.officeMap.init();
     };
 }
 

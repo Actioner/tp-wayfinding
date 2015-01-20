@@ -225,4 +225,7 @@
   <data name="Code" xml:space="preserve">
     <value>Code</value>
   </data>
+  <data name="Identifier" xml:space="preserve">
+    <value>Identifier</value>
+  </data>
 </root>

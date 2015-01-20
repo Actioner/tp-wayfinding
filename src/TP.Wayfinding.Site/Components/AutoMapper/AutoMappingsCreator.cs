@@ -16,6 +16,8 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using TP.Wayfinding.Site.Models.Office;
 using TP.Wayfinding.Site.Models.OfficeType;
+using TP.Wayfinding.Site.Models.Node;
+using TP.Wayfinding.Site.Models.Connection;
 
 namespace TP.Wayfinding.Site.Components.AutoMapper
 {
@@ -78,6 +80,21 @@ namespace TP.Wayfinding.Site.Components.AutoMapper
                 .ForMember(dest => dest.Coordinates, opt => opt.Ignore())
                 .ForMember(dest => dest.ImagePath, opt => opt.Ignore())
                 .ForMember(dest => dest.ImageFolder, opt => opt.Ignore());
+
+            Mapper.CreateMap<Node, NodeModel>()
+             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.NodeId));
+            Mapper.CreateMap<NodeModel, Node>()
+                .ForMember(dest => dest.NodeId, opt => opt.MapFrom(src => src.Id));
+
+            Mapper.CreateMap<Connection, ConnectionModel>()
+             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ConnectionId));
+            Mapper.CreateMap<ConnectionModel, Connection>()
+                .ForMember(dest => dest.ConnectionId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.NodeA, opt => opt.Ignore())
+                .ForMember(dest => dest.NodeB, opt => opt.Ignore())
+                .ForMember(dest => dest.Weight, opt => opt.Ignore())
+                .ForMember(dest => dest.Selected, opt => opt.Ignore());
+
                 
             Mapper.AssertConfigurationIsValid();        
         }

@@ -39,7 +39,7 @@ namespace TP.Wayfinding.Site.Components.Validators.Floor
         private bool BeUnique(T model)
         {
             var db = Database.Default;
-            var floor = db.FloorMap.Find(db.FloorMap.Floor == model.Floor && db.FloorMap.BuildingId == model.BuildingId);
+            var floor = db.FloorMap.Find(db.FloorMap.Floor == model.Floor && db.FloorMap.BuildingId == model.BuildingId && db.FloorMap.FloorMapId != model.Id);
             return floor == null;
         }
     }

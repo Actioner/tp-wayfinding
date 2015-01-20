@@ -160,6 +160,15 @@ namespace TP.Wayfinding.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Identifier.
+        /// </summary>
+        public static string Identifier {
+            get {
+                return ResourceManager.GetString("Identifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Items.
         /// </summary>
         public static string Items {

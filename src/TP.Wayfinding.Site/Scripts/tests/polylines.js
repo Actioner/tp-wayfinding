@@ -52,6 +52,7 @@ var addMarker = function (event) {
         } else {
             var ver = graph.findVertexByMarker(marker);
             graph.addEdge(selectedVertex, ver);
+            ver.toggle();
         }
         graph.toString();
     });

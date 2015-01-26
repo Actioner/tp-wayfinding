@@ -19,7 +19,39 @@ namespace TP.Wayfinding.Site.Controllers.Api
         public IHttpActionResult Get()
         {
             var db = Database.Open();
-            var buildings = db.Building.All().ToList<Building>();
+            var query = db.Building
+                        .All();
+
+            var buildings = query
+              .OrderBy(db.Building.LastUpdated)
+              .ToList<Building>();
+        
+            return Ok(MappingEngine.Map<IList<BuildingModel>>(buildings));
+        }
+
+        // GET api/building
+        public IHttpActionResult GetByOfficeId(int officeId)
+        {
+            var db = Database.Open();
+            var query = db.Building
+                        .All()
+                        .Select(db.Building.BuildingId.Distinct(),
+                                db.Building.Name,
+                                db.Building.Location,
+                                db.Building.Company,
+                                db.Building.Address,
+                                db.Building.LastUpdated,
+                                db.Building.NwLatitude,
+                                db.Building.NwLongitude,
+                                db.Building.SeLatitude,
+                                db.Building.SeLongitude)
+                        .Join(db.FloorMap).On(BuildingId: db.Building.BuildingId)
+                        .Join(db.Office).On(FloorMapId: db.FloorMap.FloorMapId)
+                        .Where(db.Office.OfficeId == officeId);
+
+            var buildings = query
+              .OrderBy(db.Building.LastUpdated)
+              .ToList<Building>();
 
             return Ok(MappingEngine.Map<IList<BuildingModel>>(buildings));
         }

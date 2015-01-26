@@ -74,6 +74,8 @@ namespace TP.Wayfinding.Site.Controllers.Api
         {
             var db = Database.Open();
             db.Node.DeleteByNodeId(id);
+            db.Connection.DeleteByNodeAId(id);
+            db.Connection.DeleteByNodeBId(id);
 
             return Ok(id);
         }

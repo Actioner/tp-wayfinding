@@ -143,6 +143,9 @@
     <Reference Include="Simple.Data.Ado">
       <HintPath>..\..\packages\Simple.Data.Ado.0.19.0.0\lib\net40\Simple.Data.Ado.dll</HintPath>
     </Reference>
+    <Reference Include="Simple.Data.RawSql">
+      <HintPath>..\..\packages\Simple.Data.RawSql.0.1.4446.14702\lib\net40\Simple.Data.RawSql.dll</HintPath>
+    </Reference>
     <Reference Include="Simple.Data.SqlServer">
       <HintPath>..\..\packages\Simple.Data.SqlServer.0.19.0.0\lib\net40\Simple.Data.SqlServer.dll</HintPath>
     </Reference>
@@ -945,6 +948,58 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\select2-3.5.1\select2-bootstrap.css" />
+    <Content Include="Scripts\select2-3.5.1\select2-spinner.gif" />
+    <Content Include="Scripts\select2-3.5.1\select2.css" />
+    <Content Include="Scripts\select2-3.5.1\select2.js" />
+    <Content Include="Scripts\select2-3.5.1\select2.min.js" />
+    <Content Include="Scripts\select2-3.5.1\select2.png" />
+    <Content Include="Scripts\select2-3.5.1\select2x2.png" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_ar.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_az.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_bg.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_ca.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_cs.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_da.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_de.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_el.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_es.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_et.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_eu.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_fa.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_fi.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_fr.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_gl.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_he.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_hr.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_hu.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_id.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_is.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_it.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_ja.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_ka.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_ko.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_lt.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_lv.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_mk.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_ms.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_nl.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_no.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_pl.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_pt-BR.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_pt-PT.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_ro.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_rs.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_ru.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_sk.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_sv.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_th.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_tr.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_ug-CN.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_uk.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_vi.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_zh-CN.js" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_zh-TW.js" />
     <Content Include="Scripts\tests\affineoverlay.js" />
     <Content Include="Scripts\tests\hermite.js" />
     <Content Include="Scripts\tests\downloadcontrol.js" />
@@ -964,6 +1019,11 @@
     <Content Include="Scripts\tests\upload.js" />
     <Content Include="Scripts\uploader.js" />
     <Content Include="Scripts\wayfinding\building.js" />
+    <Content Include="Scripts\wayfinding\person.js" />
+    <Content Include="Scripts\wayfinding\personList.js" />
+    <Content Include="Scripts\wayfinding\device.js" />
+    <Content Include="Scripts\wayfinding\graph.js" />
+    <Content Include="Scripts\wayfinding\navigation.js" />
     <Content Include="Scripts\wayfinding\office.js" />
     <Content Include="Scripts\wayfinding\floor.js" />
     <Content Include="Scripts\wayfinding\models.js" />
@@ -1000,6 +1060,12 @@
     <Compile Include="Components\Validators\Connection\CreateConnectionValidator.cs" />
     <Compile Include="Components\Validators\Connection\EditConnectionValidator.cs" />
     <Compile Include="Components\Validators\Connection\ConnectionValidator.cs" />
+    <Compile Include="Components\Validators\Device\CreateDeviceValidator.cs" />
+    <Compile Include="Components\Validators\Device\DeviceValidator.cs" />
+    <Compile Include="Components\Validators\Device\EditDeviceValidator.cs" />
+    <Compile Include="Components\Validators\Person\PersonValidator.cs" />
+    <Compile Include="Components\Validators\Person\CreatePersonValidator.cs" />
+    <Compile Include="Components\Validators\Person\EditPersonValidator.cs" />
     <Compile Include="Components\Validators\Node\CreateNodeValidator.cs" />
     <Compile Include="Components\Validators\Node\EditNodeValidator.cs" />
     <Compile Include="Components\Validators\Node\NodeValidator.cs" />
@@ -1018,12 +1084,17 @@
     <Compile Include="Controllers\Api\BaseApiController.cs" />
     <Compile Include="Controllers\Api\BuildingController.cs" />
     <Compile Include="Controllers\Api\ConnectionController.cs" />
+    <Compile Include="Controllers\Api\PersonController.cs" />
+    <Compile Include="Controllers\Api\DeviceController.cs" />
+    <Compile Include="Controllers\Api\NavigationController.cs" />
     <Compile Include="Controllers\Api\NodeController.cs" />
     <Compile Include="Controllers\Api\OfficeTypeController.cs" />
     <Compile Include="Controllers\Api\OfficeController.cs" />
     <Compile Include="Controllers\Api\FloorController.cs" />
     <Compile Include="Controllers\BuildingController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\OfficeController.cs" />
     <Compile Include="Controllers\FloorController.cs" />
@@ -1037,10 +1108,22 @@
     <Compile Include="Models\Building\BuildingModel.cs" />
     <Compile Include="Models\Building\CreateBuildingModel.cs" />
     <Compile Include="Models\Building\EditBuildingModel.cs" />
+    <Compile Include="Models\Building\BuildingSearchModel.cs" />
     <Compile Include="Models\Connection\CreateConnectionModel.cs" />
     <Compile Include="Models\Connection\EditConnectionModel.cs" />
     <Compile Include="Models\Connection\ConnectionModel.cs" />
     <Compile Include="Models\Connection\ConnectionSearchModel.cs" />
+    <Compile Include="Models\Person\PersonListModel.cs" />
+    <Compile Include="Models\Person\CreatePersonModel.cs" />
+    <Compile Include="Models\Person\PersonModel.cs" />
+    <Compile Include="Models\Person\PersonSearchModel.cs" />
+    <Compile Include="Models\Person\EditPersonModel.cs" />
+    <Compile Include="Models\Device\DeviceModel.cs" />
+    <Compile Include="Models\Device\CreateDeviceModel.cs" />
+    <Compile Include="Models\Device\EditDeviceModel.cs" />
+    <Compile Include="Models\Device\DeviceSearchModel.cs" />
+    <Compile Include="Models\Navigation\NavigationModel.cs" />
+    <Compile Include="Models\Navigation\NavigationSearchModel.cs" />
     <Compile Include="Models\Node\CreateNodeModel.cs" />
     <Compile Include="Models\Node\EditNodeModel.cs" />
     <Compile Include="Models\Node\NodeModel.cs" />
@@ -1092,6 +1175,22 @@
     <Content Include="Views\Home\Tiler\Test.cshtml" />
     <Content Include="Views\Floor\View.cshtml" />
     <Content Include="Views\Office\Index.cshtml" />
+    <Content Include="Views\Navigation\Index.cshtml" />
+    <Content Include="Views\Device\Index.cshtml" />
+    <Content Include="Views\Person\Index.cshtml" />
+    <Content Include="Views\Person\Create.cshtml" />
+    <Content Include="Views\Person\Edit.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CreatePersonModel.cshtml" />
+    <Content Include="Scripts\select2-3.5.1\bower.json" />
+    <Content Include="Scripts\select2-3.5.1\component.json" />
+    <Content Include="Scripts\select2-3.5.1\composer.json" />
+    <Content Include="Scripts\select2-3.5.1\LICENSE" />
+    <Content Include="Scripts\select2-3.5.1\package.json" />
+    <Content Include="Scripts\select2-3.5.1\README.md" />
+    <Content Include="Scripts\select2-3.5.1\release.sh" />
+    <Content Include="Scripts\select2-3.5.1\select2.jquery.json" />
+    <Content Include="Scripts\select2-3.5.1\select2_locale_en.js.template" />
+    <Content Include="Views\Shared\EditorTemplates\EditPersonModel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

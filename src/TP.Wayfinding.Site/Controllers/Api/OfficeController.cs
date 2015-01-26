@@ -23,8 +23,34 @@ namespace TP.Wayfinding.Site.Controllers.Api
         public IHttpActionResult Get([FromUri]OfficeSearchModel search)
         {
             var db = Database.Open();
-            var officesDb = search.FloorMapId.HasValue ? db.Office.FindAllBy(FloorMapId: search.FloorMapId.Value) : db.Office.All();
-            var offices = officesDb.OrderByOfficeNumber().ToList<Office>();
+            var query = db.Office.All();
+
+            if (search.BuildingId.HasValue)
+            {
+                query = query
+                     .Where(db.Office.FloorMap.Building.BuildingId == search.BuildingId.Value);
+            }
+
+            if (search.FloorMapId.HasValue) {
+                query = query
+                     .Where(db.Office.FloorMapId == search.FloorMapId.Value);
+            }
+
+            if (search.OfficeTypeId.HasValue)
+            {
+                query = query
+                     .Where(db.Office.OfficeType == search.OfficeTypeId.Value);
+            }
+
+            if (!string.IsNullOrEmpty(search.DisplayNameTerm))
+            {
+                query = query
+                     .Where(db.Office.DisplayName.Like("%" + search.DisplayNameTerm + "%"));
+            }
+
+            var offices = query
+                .OrderByOfficeNumber()
+                .ToList<Office>();
 
             return Ok(MappingEngine.Map<IList<OfficeModel>>(offices));
         }

@@ -18,6 +18,8 @@ using TP.Wayfinding.Site.Models.Office;
 using TP.Wayfinding.Site.Models.OfficeType;
 using TP.Wayfinding.Site.Models.Node;
 using TP.Wayfinding.Site.Models.Connection;
+using TP.Wayfinding.Site.Models.Device;
+using TP.Wayfinding.Site.Models.Person;
 
 namespace TP.Wayfinding.Site.Components.AutoMapper
 {
@@ -52,28 +54,28 @@ namespace TP.Wayfinding.Site.Components.AutoMapper
                 .ForMember(dest => dest.OfficeTypeId, opt => opt.MapFrom(src => src.Id));
 
             Mapper.CreateMap<FloorMap, FloorListModel>()
-              .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.FloorMapId))
-                .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(src => string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority, GlobalSettings.MapsFolder.Replace("~", "") + src.ImagePath)));
-             Mapper.CreateMap<FloorMap, FloorModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.FloorMapId))
-                .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(src => string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority, GlobalSettings.MapsFolder.Replace("~", "") + src.ImagePath)))
-                .ForMember(dest => dest.Image, opt => opt.ResolveUsing((src) =>
-                {
-                    if (string.IsNullOrEmpty(src.ImagePath)) 
-                    {
-                        return null;
-                    }
+                .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(src => string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority, GlobalSettings.MapsFolder.Replace("~", "") + src.ImagePath)));
+            Mapper.CreateMap<FloorMap, FloorModel>()
+               .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.FloorMapId))
+               .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(src => string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority, GlobalSettings.MapsFolder.Replace("~", "") + src.ImagePath)))
+               .ForMember(dest => dest.Image, opt => opt.ResolveUsing((src) =>
+               {
+                   if (string.IsNullOrEmpty(src.ImagePath))
+                   {
+                       return null;
+                   }
 
-                    string filename = HttpContext.Current.Server.MapPath(Path.Combine(GlobalSettings.MapsFolder, src.ImagePath));
-                    if (!File.Exists(filename))
-                    {
-                        return null;
-                    }
+                   string filename = HttpContext.Current.Server.MapPath(Path.Combine(GlobalSettings.MapsFolder, src.ImagePath));
+                   if (!File.Exists(filename))
+                   {
+                       return null;
+                   }
 
-                    var image = Image.FromFile(filename);
+                   var image = Image.FromFile(filename);
 
-                    return image.ImageToBase64(ImageFormat.Png);
-                })); 
+                   return image.ImageToBase64(ImageFormat.Png);
+               }));
 
             Mapper.CreateMap<FloorModel, FloorMap>()
                 .ForMember(dest => dest.FloorMapId, opt => opt.MapFrom(src => src.Id))
@@ -82,21 +84,27 @@ namespace TP.Wayfinding.Site.Components.AutoMapper
                 .ForMember(dest => dest.ImageFolder, opt => opt.Ignore());
 
             Mapper.CreateMap<Node, NodeModel>()
-             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.NodeId));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.NodeId));
             Mapper.CreateMap<NodeModel, Node>()
                 .ForMember(dest => dest.NodeId, opt => opt.MapFrom(src => src.Id));
 
             Mapper.CreateMap<Connection, ConnectionModel>()
-             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ConnectionId));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ConnectionId));
             Mapper.CreateMap<ConnectionModel, Connection>()
                 .ForMember(dest => dest.ConnectionId, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.NodeA, opt => opt.Ignore())
-                .ForMember(dest => dest.NodeB, opt => opt.Ignore())
-                .ForMember(dest => dest.Weight, opt => opt.Ignore())
-                .ForMember(dest => dest.Selected, opt => opt.Ignore());
+                .ForMember(dest => dest.FloorMapId, opt => opt.Ignore());
 
-                
-            Mapper.AssertConfigurationIsValid();        
+            Mapper.CreateMap<Device, DeviceModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.DeviceId));
+            Mapper.CreateMap<DeviceModel, Device>()
+                .ForMember(dest => dest.DeviceId, opt => opt.MapFrom(src => src.Id));
+
+            Mapper.CreateMap<Person, PersonModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PersonId));
+            Mapper.CreateMap<PersonModel, Person>()
+                .ForMember(dest => dest.PersonId, opt => opt.MapFrom(src => src.Id));
+
+            Mapper.AssertConfigurationIsValid();
         }
     }
 

@@ -4,10 +4,10 @@ namespace TP.Wayfinding.Domain
 {
     public class Device
     {
-        public string MAC { get; set; }
+        public int DeviceId { get; set; }
+        public int FloorMapId { get; set; }
+        public string Name { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-        public FloorMap FloorMap { get; set; }
-        public Building Building { get; set; }
     }
 }

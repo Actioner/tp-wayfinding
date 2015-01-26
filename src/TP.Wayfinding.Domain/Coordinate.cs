@@ -15,6 +15,7 @@ namespace TP.Wayfinding.Domain
         public string Status { get; set; }
         public string Detail { get; set; }
         public string TypeCode { get; set; }
+
         public Coordinate(double x, double y, double latitude, double longitude)
         {
             this.X = x;
@@ -29,12 +30,12 @@ namespace TP.Wayfinding.Domain
             this.Longitude = longitude;
         }
 
-        public Coordinate(Device device)
-        {
-            this.Latitude = device.Latitude;
-            this.Longitude = device.Longitude;
-            this.FloorMap = device.FloorMap;
-        }
+        //public Coordinate(Device device)
+        //{
+        //    this.Latitude = device.Latitude;
+        //    this.Longitude = device.Longitude;
+        //    this.FloorMap = device.FloorMap;
+        //}
 
         public void ConvertToCoord(Coordinate NW, Coordinate SE)
         {

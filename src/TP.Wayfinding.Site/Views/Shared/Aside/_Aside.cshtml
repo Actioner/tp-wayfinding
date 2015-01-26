@@ -33,6 +33,16 @@
                     <li><a class="active" href="@Url.Action("Index", "Navigation")">View</a></li>
                 </ul>
             </li>
+            <li class="sub-menu @(ViewBag.ControllerName == "device" ? "active" : string.Empty)">
+                <a href="javascript:;" class="">
+                    <i class="icon_contacts_alt"></i>
+                    <span>Devices</span>
+                    <span class="menu-arrow @(ViewBag.ControllerName == "device" ? "arrow_carrot-down" : "arrow_carrot-right")"></span>
+                </a>
+                 <ul class="sub">
+                    <li><a class="active" href="@Url.Action("Index", "Device")">View</a></li>
+                </ul>
+            </li>
             <li class="sub-menu @(ViewBag.ControllerName == "people" ? "active" : string.Empty)">
                 <a href="javascript:;" class="">
                     <i class="icon_contacts_alt"></i>
@@ -40,8 +50,8 @@
                     <span class="menu-arrow @(ViewBag.ControllerName == "people" ? "arrow_carrot-down" : "arrow_carrot-right")"></span>
                 </a>
                 <ul class="sub">
-                    <li><a class="active" href="general.html">List</a></li>
-                    <li><a class="" href="buttons.html">Create</a></li>
+                    <li><a class="active" href="@Url.Action("Index", "Person")">List</a></li>
+                    <li><a class="" href="@Url.Action("Create", "Person")">Create</a></li>
                 </ul>
             </li>
         </ul>

@@ -22,7 +22,6 @@
             dataType: "json"
         }).done(function (response) {
             ko.mapping.fromJS(response, {}, office);
-            console.log(office.id());
             if (isUpdate) {
                 window.notifyUpdate();
             } else {
@@ -83,7 +82,6 @@ function OfficePoint(office, officeMap) {
 
     //Add a listener
     google.maps.event.addListener(self.infoWindow_, 'domready', self.openInfoReady);
-
     google.maps.event.addListener(self.infoWindow_, "closeclick", self.closeInfoReady);
 
     self.clearMarker = function () {
@@ -174,7 +172,7 @@ function OfficeMap() {
         scaleControl: false,
         streetViewControl: false,
         overviewMapControl: false,
-        mapTypeControl: false
+        mapTypeControl: true
     });
 
     self.toggle = function (officePoint) {
@@ -245,6 +243,7 @@ function OfficeMap() {
             self.officePoints()[i].clearMarker();
         }
         self.officePoints([]);
+        self.detachCreateListener();
 
         if (self.overlay_ != null)
             self.overlay_.setMap(null);
@@ -275,13 +274,11 @@ function OfficeMap() {
 
         self.attachCreateListener();
 
-        if (offices.length > 0) {
-            for (var i = 0; i < offices.length; i++) {
-                var office = new Office();
-                ko.mapping.fromJS(offices[i], {}, office);
+        for (var i = 0; i < offices.length; i++) {
+            var office = new Office();
+            ko.mapping.fromJS(offices[i], {}, office);
 
-                self.addOfficePoint(office);
-            }
+            self.addOfficePoint(office);
         }
     };
 }

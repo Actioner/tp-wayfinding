@@ -45,7 +45,7 @@
     </div>
 </div>
 
-<div class="row" >
+<div class="row" style="display:none;">
     <div class="col-lg-12">
         <section id="tmplContainer"class="panel col-lg-3">
             <form id="placeTmpl" action="#" method="post" class="form-horizontal form-validate" role="form">
@@ -62,7 +62,6 @@
                         <label class="sr-only">Name</label>
                         <input placeholder="Enter Name" class="form-control" id="DisplayName" name="DisplayName" type="text" data-bind="value: displayName, css: { error: typeof ($parents[1].errors.displayName()) !== 'undefined' }" data-val="true" data-val-required="'Name' should not be empty." aria-required="true" aria-describedby="Name-error">
                         <label data-valmsg-replace="true" data-valmsg-for="DisplayName" data-bind="text: $parents[1].errors.displayName" class="error"></label>
-                        
                     </div>
                     <div class="form-group">
                         <label class="sr-only">Number</label>

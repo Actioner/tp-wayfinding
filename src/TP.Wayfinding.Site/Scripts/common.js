@@ -108,6 +108,18 @@ var isFunction = function (functionToCheck) {
     return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
 };
 
+var isEmpty = function (objectToCheck) {
+    if (objectToCheck == null) return true;
+    if (objectToCheck.length > 0) return false;
+    if (objectToCheck.length === 0) return true;
+
+    for (var key in objectToCheck) {
+        if (hasOwnProperty.call(objectToCheck, key)) return false;
+    }
+
+    return true;
+};
+
 var initializeForms = function () {
     $('form.form-validate').each(function () {
         if (typeof ($.validator) == "undefined") {

@@ -1,0 +1,80 @@
+﻿@using TP.Wayfinding.Resources
+@using TP.Wayfinding.Site.Components.Extensions
+@using TP.Wayfinding.Site.Models.Person
+
+@model EditPersonModel
+
+<form action="#" method="post" class="form-horizontal form-validate" role="form" data-bind="submit: save">
+    <section class="panel col-lg-12">
+        <header class="panel-heading">Edit Person</header>
+        <div class="panel-body">
+            @Html.HiddenFor(m => m.Id)
+            <div class="form-group">
+                @Html.LabelFor(m => m.AccountName, PropertyNames.AccountName, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.AccountName, new { @class = "form-control", data_bind = "value: data.accountName, css: { error: typeof(errors.accountName()) !== 'undefined' }" })
+                    @Html.WayfindingValidationMessageFor(m => m.AccountName, new { @data_bind = "text: errors.accountName" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.FirstName, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", data_bind = "value: data.firstName, css: { error: typeof(errors.firstName()) !== 'undefined' }" })
+                    @Html.WayfindingValidationMessageFor(m => m.FirstName, new { @data_bind = "text: errors.firstName" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.LastName, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", data_bind = "value: data.lastName, css: { error: typeof(errors.lastName()) !== 'undefined' }" })
+                    @Html.WayfindingValidationMessageFor(m => m.LastName, new { @data_bind = "text: errors.lastName" })
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Building</label>
+                <div class="col-sm-10">
+                    <select class="form-control" data-bind="options: buildings, optionsValue: 'id', optionsText: 'name', value: buildingId, optionsCaption: 'Select a Building...'"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.OfficeId, "Office", new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    <input id="OfficeId" name="OfficeId" data-bind="value: data.officeId" type="hidden" class="form-control"/>
+                    @Html.WayfindingValidationMessageFor(m => m.OfficeId, new { @data_bind = "text: errors.officeId" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", data_bind = "value: data.phoneNumber, css: { error: typeof(errors.phoneNumber()) !== 'undefined' }" })
+                    @Html.WayfindingValidationMessageFor(m => m.PhoneNumber, new { @data_bind = "text: errors.phoneNumber" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Department, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Department, new { @class = "form-control", data_bind = "value: data.department, css: { error: typeof(errors.department()) !== 'undefined' }" })
+                    @Html.WayfindingValidationMessageFor(m => m.Department, new { @data_bind = "text: errors.department" })
+                </div>
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(m => m.Division, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Division, new { @class = "form-control", data_bind = "value: data.division, css: { error: typeof(errors.division()) !== 'undefined' }" })
+                    @Html.WayfindingValidationMessageFor(m => m.Division, new { @data_bind = "text: errors.division" })
+                </div>
+            </div>
+            
+             <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <a href="@Url.Action("Index")" class="btn btn-default">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+
+

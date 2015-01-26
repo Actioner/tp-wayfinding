@@ -53,7 +53,6 @@ Graph.prototype.removeVertex = function (vertex) {
         while (adjacentList._vertexList[j] != null && !adjacentList._vertexList[j].marker.equals(vertex.marker)) {
             j++;
         }
-        //revisar como quitar 
         if (j < adjacentList._vertexList.length) {
             this._numOfEdges--;
 

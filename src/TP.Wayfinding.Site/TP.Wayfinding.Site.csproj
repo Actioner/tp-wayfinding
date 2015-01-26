@@ -219,6 +219,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\karmanta\img\backgrounds\bg-wayfinding.jpg" />
     <Content Include="Content\tiler.css" />
     <Content Include="Content\karmanta\assets\chart-master\Chart.js" />
     <Content Include="Content\karmanta\assets\chart-master\Chart.min.js" />
@@ -926,6 +927,7 @@
     <Content Include="Content\karmanta\assets\gritter\bower.json" />
     <Content Include="Content\karmanta\assets\gritter\package.json" />
     <Content Include="Content\karmanta\assets\gritter\README.markdown" />
+    <None Include="Properties\PublishProfiles\Dev.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\html5shiv.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />

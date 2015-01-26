@@ -48,6 +48,14 @@ function ViewModel() {
         });
     };
 
+    self.getBuilding = function () {
+        $.getJSON('/api/building?officeId=' + self.data.officeId(), {
+            returnformat: 'json'
+        }, function (data) {
+            self.buildingId(data[0].id);
+        });
+    };
+
     self.getBuildings = function () {
         loading.show();
         $.getJSON('/api/building', {
@@ -87,7 +95,6 @@ function ViewModel() {
                         callback(new minOffice(data));
                     });
                 }
-                //callback(data);
             },
             formatResult: function (office) {
                 return office.text;
@@ -107,6 +114,7 @@ function ViewModel() {
         }, function (data) {
             loading.hide();
             ko.mapping.fromJS(data, {}, self.data);
+            self.getBuilding();
             self.getOffices();
         });
     };

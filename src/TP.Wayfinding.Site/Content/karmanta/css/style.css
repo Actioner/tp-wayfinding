@@ -93,10 +93,17 @@ table tr th { color: #007AFF;}
   -o-background-size: cover;
   background-size: cover;
 }
+.login-imgwayfinding-body{
+  background: url('../img/backgrounds/bg-wayfinding.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 
 .login-form {
     max-width: 350px;
-    margin: 200px auto 0;
+    margin: 0px auto 0;
     background: #d5d7de;    
 }
 .login-img-body .login-form{

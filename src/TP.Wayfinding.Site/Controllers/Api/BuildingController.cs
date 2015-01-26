@@ -16,11 +16,20 @@ namespace TP.Wayfinding.Site.Controllers.Api
     public class BuildingController : BaseApiController
     {
         // GET api/building
-        public IHttpActionResult Get()
+        public IHttpActionResult Get([FromUri]BuildingSearchModel search)
         {
             var db = Database.Open();
             var query = db.Building
                         .All();
+
+            if (search.OfficeId.HasValue) 
+            {
+                query = query
+                        .Select(db.Building.AllColumns())
+                        .Join(db.FloorMap).On(BuildingId: db.Building.BuildingId)
+                        .Join(db.Office).On(FloorMapId: db.FloorMap.FloorMapId)
+                        .Where(db.Office.OfficeId == search.OfficeId.Value);
+            }
 
             var buildings = query
               .OrderBy(db.Building.LastUpdated)
@@ -28,34 +37,7 @@ namespace TP.Wayfinding.Site.Controllers.Api
         
             return Ok(MappingEngine.Map<IList<BuildingModel>>(buildings));
         }
-
-        // GET api/building
-        public IHttpActionResult GetByOfficeId(int officeId)
-        {
-            var db = Database.Open();
-            var query = db.Building
-                        .All()
-                        .Select(db.Building.BuildingId.Distinct(),
-                                db.Building.Name,
-                                db.Building.Location,
-                                db.Building.Company,
-                                db.Building.Address,
-                                db.Building.LastUpdated,
-                                db.Building.NwLatitude,
-                                db.Building.NwLongitude,
-                                db.Building.SeLatitude,
-                                db.Building.SeLongitude)
-                        .Join(db.FloorMap).On(BuildingId: db.Building.BuildingId)
-                        .Join(db.Office).On(FloorMapId: db.FloorMap.FloorMapId)
-                        .Where(db.Office.OfficeId == officeId);
-
-            var buildings = query
-              .OrderBy(db.Building.LastUpdated)
-              .ToList<Building>();
-
-            return Ok(MappingEngine.Map<IList<BuildingModel>>(buildings));
-        }
-
+        
         // GET api/building/5
         public IHttpActionResult Get(int id)
         {

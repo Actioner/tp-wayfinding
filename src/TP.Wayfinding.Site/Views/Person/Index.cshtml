@@ -4,6 +4,18 @@
 
 <div class="row">
     <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">New Person</header>
+            <div class="panel-body">
+                <a class="btn btn-info" href="@Url.Action("Create")" title="Bootstrap 3 themes generator">Add a new Person</a>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
         <form id="searchContainer" action="#" method="post" class="form-horizontal form-validate" role="form">
             <section class="panel">
                 <header class="panel-heading">Find People</header>
@@ -34,7 +46,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row"  data-bind="visible: currentData().length > 0">
     <div class="col-lg-12">
         <section class="panel">
             <header class="panel-heading">People</header>
@@ -60,7 +72,6 @@
                         <td data-bind="text: building"></td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-primary" href="@Url.Action("Create")"><i class="icon_plus_alt2"></i></a>
                                 <a class="btn btn-success" data-bind="attr: { href: '/Person/Edit/' + $data.id() }"><i class="icon_check_alt2"></i></a>
                                 <a class="btn btn-danger" data-toggle="modal" href="#deleteConfirm" data-bind="attr: { 'data-deleteurl': 'api/Person/' + $data.id() }"><i class="icon_close_alt2"></i></a>
                             </div>

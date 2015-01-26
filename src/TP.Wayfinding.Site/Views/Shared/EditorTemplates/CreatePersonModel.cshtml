@@ -40,8 +40,7 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.OfficeId, "Office", new { @class = "col-sm-2 control-label" })
                 <div class="col-sm-10">
-                    <input data-bind="value: data.officeId" type="hidden" class="form-control"/>
-                    <input id="OfficeId" name="OfficeId" data-bind="value: selOffice" type="hidden" class="form-control"/>
+                    <input id="OfficeId" name="OfficeId" data-bind="value: data.officeId" type="hidden" class="form-control"/>
                     @Html.WayfindingValidationMessageFor(m => m.OfficeId, new { @data_bind = "text: errors.officeId" })
                 </div>
             </div>

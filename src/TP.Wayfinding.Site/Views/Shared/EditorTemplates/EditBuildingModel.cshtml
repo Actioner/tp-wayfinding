@@ -4,7 +4,7 @@
 
 @model EditBuildingModel
 
-<form action="#" method="post" class="form-horizontal form-validate" role="form">
+<form action="#" method="post" class="form-horizontal form-validate" role="form" data-bind="submit: save">
     <section class="panel col-lg-6">
         <header class="panel-heading">Edit Building</header>
         <div class="panel-body">
@@ -33,7 +33,7 @@
              <div class="form-group">
                 <div class="col-lg-offset-2 col-lg-10">
                     <a href="@Url.Action("Index")" class="btn btn-default">Cancel</a>
-                    <button type="submit" class="btn btn-primary" data-bind="click: save">Save</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </div>
             @Html.HiddenFor(m => m.NwLatitude, new { data_bind = "value: data.nwLatitude" })

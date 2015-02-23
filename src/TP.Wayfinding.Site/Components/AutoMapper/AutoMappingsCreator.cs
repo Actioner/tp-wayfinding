@@ -102,9 +102,17 @@ namespace TP.Wayfinding.Site.Components.AutoMapper
                 .ForMember(dest => dest.LastTick, opt => opt.Ignore());
 
             Mapper.CreateMap<Person, PersonModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PersonId));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PersonId))
+                .ForMember(dest => dest.ImagePath,
+                    opt => opt.MapFrom(src => string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme,
+                                    HttpContext.Current.Request.Url.Authority,
+                                    GlobalSettings.PeopleFolder.Replace("~", "") + src.ImagePath)));
             Mapper.CreateMap<PersonModel, Person>()
-                .ForMember(dest => dest.PersonId, opt => opt.MapFrom(src => src.Id));
+                .ForMember(dest => dest.PersonId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.ImagePath,
+                    opt => opt.MapFrom(src => string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme,
+                                    HttpContext.Current.Request.Url.Authority,
+                                    GlobalSettings.PeopleFolder.Replace("~", "") + src.ImagePath)));
 
             Mapper.AssertConfigurationIsValid();
         }

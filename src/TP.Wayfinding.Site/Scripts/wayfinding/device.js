@@ -72,6 +72,8 @@ function DevicePoint(device, deviceMap) {
         draggable: false
     });
 
+    self.marker_.setIcon('/Content/mapIcons/red-device.png');
+
     self.openInfoReady = function () {
         var placeholder = $("#infoPlaceholder");
         self.tmpl_.appendTo(placeholder);
@@ -91,11 +93,11 @@ function DevicePoint(device, deviceMap) {
 
     self.isSelected.subscribe(function (sel) {
         if (sel) {
-            self.marker_.setIcon('https://mts.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-blue.png');
+            self.marker_.setIcon('/Content/mapIcons/blu-device.png');
             self.infoWindow_.open(self.deviceMap.getMap(), self.marker_);
         }
         else {
-            self.marker_.setIcon('https://mts.googleapis.com/vt/icon/name=icons/spotlight/spotlight-poi.png');
+            self.marker_.setIcon('/Content/mapIcons/red-device.png');
             self.closeInfoReady();
             self.infoWindow_.close();
         }

@@ -220,6 +220,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\karmanta\img\backgrounds\bg-wayfinding.jpg" />
+    <Content Include="Content\mapIcons\blu-circle-lv.png" />
+    <Content Include="Content\mapIcons\blu-conference.png" />
+    <Content Include="Content\mapIcons\blu-device.png" />
+    <Content Include="Content\mapIcons\blu-office.png" />
+    <Content Include="Content\mapIcons\blu-private.png" />
+    <Content Include="Content\mapIcons\blu-restroom.png" />
+    <Content Include="Content\mapIcons\blu-special.png" />
+    <Content Include="Content\mapIcons\red-circle-lv.png" />
+    <Content Include="Content\mapIcons\red-conference.png" />
+    <Content Include="Content\mapIcons\red-device.png" />
+    <Content Include="Content\mapIcons\red-office.png" />
+    <Content Include="Content\mapIcons\red-private.png" />
+    <Content Include="Content\mapIcons\red-restroom.png" />
+    <Content Include="Content\mapIcons\red-special.png" />
     <Content Include="Content\tiler.css" />
     <Content Include="Content\karmanta\assets\chart-master\Chart.js" />
     <Content Include="Content\karmanta\assets\chart-master\Chart.min.js" />

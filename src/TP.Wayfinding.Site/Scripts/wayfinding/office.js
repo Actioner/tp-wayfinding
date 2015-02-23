@@ -53,7 +53,7 @@
 function OfficePoint(office, officeMap) {
     var self = this;
     self.office = office;
-    self.officeMap = officeMap
+    self.officeMap = officeMap;
     self.isSelected = ko.observable(false);
     self.isNew = ko.computed(function () {
         return !self.office.id() || self.office.id() == 0;
@@ -68,6 +68,25 @@ function OfficePoint(office, officeMap) {
         title: self.office.displayName(),
         draggable: false
     });
+
+    self.setIcon_ = function (ofType, selected) {
+        var prefix = selected ? 'blu' : 'red';
+        if (typeof self.office.officeType() != "undefined") {
+            if (ofType === 1) { //conference room
+                self.marker_.setIcon('/Content/mapIcons/' + prefix + '-conference.png');
+            } else if (ofType === 2 || ofType === 3) { //bathrooms
+                self.marker_.setIcon('/Content/mapIcons/' + prefix + '-restroom.png');
+            } else if (ofType === 4) { //special
+                self.marker_.setIcon('/Content/mapIcons/' + prefix + '-special.png');
+            } else if (ofType === 5) { //office
+                self.marker_.setIcon('/Content/mapIcons/' + prefix + '-office.png');
+            } else if (ofType === 6) { //private conference
+                self.marker_.setIcon('/Content/mapIcons/' + prefix + '-private.png');
+            }
+        }
+    };
+
+    self.setIcon_(self.office.officeType(), false);
 
     self.openInfoReady = function () {
         var placeholder = $("#infoPlaceholder");
@@ -90,16 +109,21 @@ function OfficePoint(office, officeMap) {
 
     self.isSelected.subscribe(function (sel) {
         if (sel) {
-            self.marker_.setIcon('https://mts.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-blue.png');
+            //self.marker_.setIcon('https://mts.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-blue.png');
             self.infoWindow_.open(self.officeMap.getMap(), self.marker_);
         }
         else {
-            self.marker_.setIcon('https://mts.googleapis.com/vt/icon/name=icons/spotlight/spotlight-poi.png');
+            //self.marker_.setIcon('https://mts.googleapis.com/vt/icon/name=icons/spotlight/spotlight-poi.png');
             self.closeInfoReady();
             self.infoWindow_.close();
         }
 
+        self.setIcon_(self.office.officeType(), sel);
         self.marker_.setDraggable(sel);
+    });
+
+    self.office.officeType.subscribe(function (ofType) {
+        self.setIcon_(ofType, self.isSelected);
     });
 
 

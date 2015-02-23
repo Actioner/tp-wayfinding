@@ -210,8 +210,6 @@ function NavigationMap() {
 
     self.connectionOnClick_ = function (edge) {
         self.selectedConnection(edge.connection);
-        
-     
 
         var inBetween = google.maps.geometry.spherical.interpolate(edge.start.marker.getPosition(), edge.end.marker.getPosition(), 0.5);
         self.connectionInfoWindow_.setPosition(inBetween);

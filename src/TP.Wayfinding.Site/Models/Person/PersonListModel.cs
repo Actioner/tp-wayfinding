@@ -14,5 +14,7 @@ namespace TP.Wayfinding.Site.Models.Person
         public string Building { get; set; }
         public string Floor { get; set; }
         public string Office { get; set; }
+        public string ImagePath { get; set; }
+
     }
 }

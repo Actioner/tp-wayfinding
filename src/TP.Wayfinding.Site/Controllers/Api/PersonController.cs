@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using AutoMapper;
 using Simple.Data;
 using TP.Wayfinding.Domain;
 using TP.Wayfinding.Site.Components.Filters;
+using TP.Wayfinding.Site.Components.Settings;
 using TP.Wayfinding.Site.Models.Person;
 
 namespace TP.Wayfinding.Site.Controllers.Api
@@ -21,11 +23,7 @@ namespace TP.Wayfinding.Site.Controllers.Api
             var db = Database.Open();
             var result = new List<PersonListModel>();
             var query = db.Person
-                        .All()
-                        .Select(db.Person.AllColumns(),
-                            db.Person.Office.DisplayName.As("Office"),
-                            db.Person.Office.FloorMap.Description.As("Floor"),
-                            db.Person.Office.FloorMap.Building.Name.As("Building"));
+                        .All();
 
             if (search.BuildingId.HasValue)
             {
@@ -40,24 +38,37 @@ namespace TP.Wayfinding.Site.Controllers.Api
             }
 
             var persons = query
-              .OrderBy(db.Person.AccountName)
-              .ToList();
+                .Select(db.Person.AllColumns(),
+                            db.Person.Office.DisplayName.As("Office"),
+                            db.Person.Office.FloorMap.Description.As("Floor"),
+                            db.Person.Office.FloorMap.Building.Name.As("Building"))
+                .OrderBy(db.Person.AccountName)
+                .Skip(search.CurrentPageIndex * search.PageSize)
+                .Take(search.PageSize)
+                .ToList();
 
             foreach (var person in persons)
             {
-                var personModel = new PersonListModel();
-                personModel.Id = person.PersonId;
-                personModel.FirstName = person.FirstName;
-                personModel.LastName = person.LastName;
-                personModel.AccountName = person.AccountName;
-                personModel.Floor = person.Floor;
-                personModel.Office = person.Office;
-                personModel.Building = person.Building;
+                var personModel = new PersonListModel
+                {
+                    Id = person.PersonId,
+                    FirstName = person.FirstName,
+                    LastName = person.LastName,
+                    AccountName = person.AccountName,
+                    Floor = person.Floor,
+                    Office = person.Office,
+                    Building = person.Building,
+                    ImagePath = string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority, GlobalSettings.PeopleFolder.Replace("~", "") + person.ImagePath)
+                };
 
                 result.Add(personModel);
             }
 
-            return Ok(result);
+            return Ok(new
+                {
+                    Data = result,
+                    Count = query.Count()
+                });
         }
 
         // GET api/person/5

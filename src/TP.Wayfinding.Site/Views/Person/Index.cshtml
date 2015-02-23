@@ -52,34 +52,41 @@
             <header class="panel-heading">People</header>
             <table class="table table-striped table-advance table-hover">
                 <thead>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Account</th>
-                        <th>Office</th>
-                        <th>Floor</th>
-                        <th>Building</th>
-                        <th><i class="icon_cogs"></i>Action</th>
-                    </tr>
+                <tr>
+                    <th></th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Account</th>
+                    <th>Office</th>
+                    <th>Floor</th>
+                    <th>Building</th>
+                    <th><i class="icon_cogs"></i>Action</th>
+                </tr>
                 </thead>
                 <tbody data-bind="foreach: currentData">
-                    <tr>
-                        <td data-bind="text: firstName"></td>
-                        <td data-bind="text: lastName"></td>
-                        <td data-bind="text: accountName"></td>
-                        <td data-bind="text: office"></td>
-                        <td data-bind="text: floor"></td>
-                        <td data-bind="text: building"></td>
-                        <td>
-                            <div class="btn-group">
-                                <a class="btn btn-success" data-bind="attr: { href: '/Person/Edit/' + $data.id() }"><i class="icon_check_alt2"></i></a>
-                                <a class="btn btn-danger" data-toggle="modal" href="#deleteConfirm" data-bind="attr: { 'data-deleteurl': 'api/Person/' + $data.id() }"><i class="icon_close_alt2"></i></a>
-                            </div>
-                        </td>
-                    </tr>
+                <tr>
+                    <td><img width="50" data-bind="attr: { src: imagePath, alt: accountName }"></td>
+                    <td data-bind="text: firstName"></td>
+                    <td data-bind="text: lastName"></td>
+                    <td data-bind="text: accountName"></td>
+                    <td data-bind="text: office"></td>
+                    <td data-bind="text: floor"></td>
+                    <td data-bind="text: building"></td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-success" data-bind="attr: { href: '/Person/Edit/' + $data.id() }"><i class="icon_check_alt2"></i></a>
+                            <a class="btn btn-danger" data-toggle="modal" href="#deleteConfirm" data-bind="attr: { 'data-deleteurl': 'api/Person/' + $data.id() }"><i class="icon_close_alt2"></i></a>
+                        </div>
+                    </td>
+                </tr>
 
                 </tbody>
             </table>
+            <ul class="pagination pull-right">
+                <li><a data-bind='click: previousPage' href="#">Previous</a></li>
+                <li><a data-bind='text: currentPageText' href="#"></a></li>
+                <li><a data-bind='click: nextPage' href="#">Next</a></li>
+            </ul>
         </section>
     </div>
 </div>

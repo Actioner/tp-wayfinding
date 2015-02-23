@@ -15,5 +15,12 @@ namespace TP.Wayfinding.Site.Components.Settings
                 return ConfigurationManager.AppSettings["Wayfinding.MapsFolder"];
             }
         }
+        public static string PeopleFolder
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["Wayfinding.PeopleFolder"];
+            }
+        }
     }
 }

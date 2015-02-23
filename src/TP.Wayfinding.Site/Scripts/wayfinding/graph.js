@@ -18,6 +18,9 @@ var Vertex = function (node, marker) {
     this.onDrag = null;
     this.onDragEnd = null;
 
+    marker.setIcon('/Content/mapIcons/red-circle-lv.png');
+
+
     google.maps.event.addListener(marker, 'click', function (evt) {
         if (window.isFunction(self.onClick)) {
             self.onClick(self, evt);
@@ -98,9 +101,9 @@ Vertex.prototype.equals = function (other) {
 Vertex.prototype.toggle = function () {
     this.selected = !this.selected;
     if (this.selected)
-        this.marker.setIcon('https://mts.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-blue.png')
+        this.marker.setIcon('/Content/mapIcons/blu-circle-lv.png');
     else
-        this.marker.setIcon('https://mts.googleapis.com/vt/icon/name=icons/spotlight/spotlight-poi.png')
+        this.marker.setIcon('/Content/mapIcons/red-circle-lv.png');
 };
 
 Graph.prototype.addVertex = function (vertex) {

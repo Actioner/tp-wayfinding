@@ -84,6 +84,8 @@ function Person() {
     self.phoneNumber = ko.observable();
     self.department = ko.observable();
     self.division = ko.observable();
+    self.displayName = ko.observable();
+    self.imagePath = ko.observable();
 }
 
 function PersonList() {

@@ -15,5 +15,7 @@ namespace TP.Wayfinding.Site.Models.Person
         public string PhoneNumber { get; set; }
         public string Department { get; set; }
         public string Division { get; set; }
+        public string DisplayName { get; set; }
+        public string ImagePath { get; set; }
     }
 }

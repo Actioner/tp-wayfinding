@@ -152,7 +152,7 @@ namespace IDBMaps.Models
 
             foreach (Office off in offices)
             {
-                if (!off.Type.Static)
+                if (!off.Type.Static.Value)
                 {
                     double dist = off.distanceTo(latitude, longitude);
                     if (dist < minDistance && dist<0.015)

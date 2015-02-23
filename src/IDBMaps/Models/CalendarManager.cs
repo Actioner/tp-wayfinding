@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,7 +6,7 @@ using Microsoft.Exchange.WebServices.Data;
 using System.Configuration;
 using System.Net;
 
-namespace IDBMaps.Models
+namespace IDBMaps.Models.Outlook
 {
     public class CalendarManager
     {
@@ -17,7 +17,7 @@ namespace IDBMaps.Models
           //  service.Url = new Uri(ConfigurationManager.AppSettings["Exchange_service"]);
             service.Credentials = new NetworkCredential(
                           "rcerrato",
-                         "",
+                         "Japonita18",
                            "IDB");
             service.AutodiscoverUrl("rcerrato@iadb.org");
 

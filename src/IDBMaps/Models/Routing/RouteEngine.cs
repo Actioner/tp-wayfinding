@@ -127,7 +127,17 @@ namespace IDBMaps.Models.Routing
             this.Nodes = db.Node.FindAllByFloorMapId(toFloorMapId).Where(db.Node.FloorConnector == false);
             if(fromFloorMapId != toFloorMapId)
                 this.Nodes.AddRange((List<Node>)db.Node.FindAllByFloorMapId(fromFloorMapId).Where(db.Node.FloorConnector == false));
+
+            if (fromFloorMapId != 19 && toFloorMapId != 19)
+                this.Nodes.AddRange((List<Node>)db.Node.FindAllByFloorMapId(19).Where(db.Node.FloorConnector == false));
+
+            if (fromFloorMapId != 15 && toFloorMapId != 15)
+                this.Nodes.AddRange((List<Node>)db.Node.FindAllByFloorMapId(15).Where(db.Node.FloorConnector == false)); 
+
+
             this.Nodes.AddRange((List<Node>)db.Node.All().Where(db.Node.FloorConnector == true));
+           
+
 
             if (this.Nodes.Count == 0)
                 return null;
@@ -136,7 +146,16 @@ namespace IDBMaps.Models.Routing
             this.Connections = db.Connection.FindAllByFloorMapId(toFloorMapId).Where(db.Connection.FloorConnection == false);//.With(db.Connection.NodeA.As("NodeA")).With(db.Connection.NodeB.As("NodeB"));
             if (fromFloorMapId != toFloorMapId)
                 this.Connections.AddRange((List<Connection>)(db.Connection.FindAllByFloorMapId(fromFloorMapId).Where(db.Connection.FloorConnection == false)));
+
+            if (fromFloorMapId != 19 && toFloorMapId != 19)
+                this.Connections.AddRange((List<Connection>)(db.Connection.FindAllByFloorMapId(19).Where(db.Connection.FloorConnection == false)));
+
+            if (fromFloorMapId != 15 && toFloorMapId != 15)
+                this.Connections.AddRange((List<Connection>)(db.Connection.FindAllByFloorMapId(15).Where(db.Connection.FloorConnection == false)));
+
+
             this.Connections.AddRange((List<Connection>)(db.Connection.All().Where(db.Connection.FloorConnection == true)));
+
             this.Connections.ForEach(c => { c.NodeA = this.Nodes.Where(n => n.NodeId == c.NodeAId).FirstOrDefault(); c.NodeB = this.Nodes.Where(n => n.NodeId == c.NodeBId).FirstOrDefault(); });
 
 

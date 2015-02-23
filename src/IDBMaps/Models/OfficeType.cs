@@ -46,10 +46,10 @@ namespace IDBMaps.Models
             set { icon = value; }
         }
 
-        private bool _static;
+        private bool? _static;
 
         [DataMember]
-        public bool Static
+        public bool? Static
         {
             get { return _static; }
             set { _static = value; }

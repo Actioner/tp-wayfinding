@@ -17,7 +17,7 @@ namespace IDBMaps.Models.Mapping
         {
             //select PDF base in Company and location
             string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/Content/pdf/") + Building.Name + ".pdf";
-            PdfDocument document = PdfReader.Open(path, PdfDocumentOpenMode.Modify);
+            PdfDocument document = CompatiblePdfReader.Open(path, PdfDocumentOpenMode.Modify);
             Coordinate result= new Coordinate();
 
             //get Page base in the OfficeNumber
@@ -52,7 +52,7 @@ namespace IDBMaps.Models.Mapping
         {
             //select PDF base in Company and location
             string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/Content/pdf/") + Building.Name + ".pdf";
-            PdfDocument document = PdfReader.Open(path, PdfDocumentOpenMode.Modify);
+            PdfDocument document = CompatiblePdfReader.Open(path, PdfDocumentOpenMode.Modify);
             Coordinate result = null;
 
             //get Page base in the OfficeNumber

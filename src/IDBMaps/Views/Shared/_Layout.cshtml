@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
      @Scripts.Render(" ~/bundles/jquery")
-     @Scripts.Render("~/bundles/modernizr")
+   
+
+@*    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")*@
 
     <style type="text/css">
       html { height: 100% }
@@ -84,7 +87,7 @@
             });
 
             $.ajax({
-                url: "@Url.Action("../api/Device")"+"?Name=2EAST",
+                url: "@Url.Action("../api/Device")"+"?DeviceName=TEST",
                 type: "GET",
                 dataType: "json",
                 async: false,
@@ -102,7 +105,7 @@
           {    
                if(oldmap != null)
                      oldmap.setMap(null);
-               oldmap = new google.maps.GroundOverlay("/Content/maps/IDB-"+$(this).val()+".png",
+               oldmap = new google.maps.GroundOverlay("../Content/maps/IDB-"+$(this).val()+".png",
                                             imageBounds);
                oldmap.setMap(map);
                google.maps.event.addListener(oldmap, "dblclick", function(event)

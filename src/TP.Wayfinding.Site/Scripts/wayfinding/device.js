@@ -256,8 +256,8 @@ function DeviceMap() {
     };
 
     self.render = function (building, floor, devices) {
-        var ne = new google.maps.LatLng(building.nwLatitude(), building.nwLongitude());
-        var sw = new google.maps.LatLng(building.seLatitude(), building.seLongitude());
+        var ne = new google.maps.LatLng(building.nwLatitude(), building.seLongitude());
+        var sw = new google.maps.LatLng(building.seLatitude(), building.nwLongitude());
 
         if (floor.neLatitude() != 0 && floor.neLongitude() != 0
             && floor.swLongitude() != 0 && floor.swLongitude() != 0) {

@@ -4,14 +4,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using IDBMaps.Models;
 
 namespace IDBMaps.Controllers.Api
 {
     public class ReportController : ApiController
     {
 
-        [HttpGet]
-        public void Get(string Description, string DeviceName)
+        [HttpPost]
+        public void Post(string Description, string DeviceName)
         {
             NetworkCredential basicCredential =
              new NetworkCredential("ITSUsr_TST", "Tracking8$"); 
@@ -22,7 +23,12 @@ namespace IDBMaps.Controllers.Api
             message.Body = Description;
             System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtpapp.iadb.org");
             smtp.Credentials = basicCredential;
-            smtp.Send(message);
+
+            if (!Description.Contains("MEMORY WARNING") && !Description.Contains("CRASH"))
+                smtp.Send(message);
+
+
+            Log.CreateLog(DeviceName, "Issuer Reported: "+Description);
         }
 
     }

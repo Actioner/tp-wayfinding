@@ -15,9 +15,9 @@ function AddressMap() {
 
         if (self.building != null) {
             self.building.nwLatitude(ne.lat());
-            self.building.nwLongitude(ne.lng());
+            self.building.nwLongitude(sw.lng());
             self.building.seLatitude(sw.lat());
-            self.building.seLongitude(sw.lng());
+            self.building.seLongitude(ne.lng());
         }
     };
 
@@ -25,8 +25,8 @@ function AddressMap() {
         if (self.building == null)
             return;
 
-        var ne = new google.maps.LatLng(self.building.nwLatitude(), self.building.nwLongitude());
-        var sw = new google.maps.LatLng(self.building.seLatitude(), self.building.seLongitude());
+        var ne = new google.maps.LatLng(self.building.nwLatitude(), self.building.seLongitude());
+        var sw = new google.maps.LatLng(self.building.seLatitude(), self.building.nwLongitude());
         var bounds = new google.maps.LatLngBounds(sw, ne);
         map.fitBounds(bounds);
         rectangle.setOptions({

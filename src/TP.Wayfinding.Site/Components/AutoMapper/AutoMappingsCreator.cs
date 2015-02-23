@@ -97,7 +97,9 @@ namespace TP.Wayfinding.Site.Components.AutoMapper
             Mapper.CreateMap<Device, DeviceModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.DeviceId));
             Mapper.CreateMap<DeviceModel, Device>()
-                .ForMember(dest => dest.DeviceId, opt => opt.MapFrom(src => src.Id));
+                .ForMember(dest => dest.DeviceId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.LastBatteryStatus, opt => opt.Ignore())
+                .ForMember(dest => dest.LastTick, opt => opt.Ignore());
 
             Mapper.CreateMap<Person, PersonModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PersonId));

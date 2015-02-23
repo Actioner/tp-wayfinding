@@ -87,9 +87,11 @@ namespace IDBMaps.Controllers
                 picture = string.Format("{0}/{1}_DW.gif", picturesFolder, UserName);
             }
 
-            Image avatar = ImageUtils.GetImageFromUrl(picture);
-            avatar = ImageUtils.resizeImage(avatar, new Size(80, 100));
-            avatar = ImageUtils.RoundCorners(avatar, 40, Color.Transparent);
+            /* Image avatar = ImageUtils.GetImageFromUrl(picture);
+             avatar = ImageUtils.resizeImage(avatar, new Size(80, 100));
+             avatar = ImageUtils.RoundCorners(avatar, 40, Color.Transparent);*/
+
+            Image avatar = Image.FromFile(String.Format(picturesFolder, UserName));
 
             MemoryStream memoryStream = new MemoryStream();
 
@@ -99,7 +101,7 @@ namespace IDBMaps.Controllers
 
 
 
-            return new ImageResult(memoryStream,contentType);
+            return new ImageResult(memoryStream, contentType);
         }
        
     }

@@ -9,6 +9,8 @@ using System.IO;
 using System.Drawing.Imaging;
 using System.Net.Http.Headers;
 using IDBMaps.Models;
+using IDBMaps.Models.DB;
+using IDBMaps.Models.Mock;
 using IDBMaps.Models.Mapping;
 using IDBMaps.Models.Routing;
 using Simple.Data;
@@ -24,6 +26,9 @@ namespace IDBMaps.Controllers.Api
       //  [CacheOutput(ClientTimeSpan = 0, ServerTimeSpan = 1000)]
         public MapResponse GetOfficeCoordinates(int BuildingId, string OfficeNumber, string UserName = "", string FromOfficeNumber = "", double? LatitudeStart = null, double? LongitudeStart = null, string DeviceName = "")
         {
+            Log.CreateLog(DeviceName, String.Format("Get Office coordinates for Office {0}", OfficeNumber));
+
+
             var db = Database.Open();
             MapResponse response = new MapResponse();
             response.Building = db.Building.FindByBuildingId(BuildingId);
@@ -47,7 +52,7 @@ namespace IDBMaps.Controllers.Api
 
                 if (device != null)
                 {
-                    response.Route = re.Calculate(response.TargetCoordinate.FloorMap.FloorMapId,device.FloorMap.FloorMapId, device.Latitude, device.Longitude, response.TargetCoordinate.Latitude, response.TargetCoordinate.Longitude);
+                    response.Route = re.Calculate(response.TargetCoordinate.FloorMap.FloorMapId,device.FloorMapId, device.Latitude, device.Longitude, response.TargetCoordinate.Latitude, response.TargetCoordinate.Longitude);
                 }
 
             }
@@ -64,11 +69,11 @@ namespace IDBMaps.Controllers.Api
                 ActiveDirectory ad = new ActiveDirectory();
                 DirectoryUser user = null;
 
-               /* if(UserName != "")
+                if(UserName != "")
                     user = ad.SearchUserByUserName(UserName);
                 else
                     user = ad.SearchUserByOfficeNumber(response.TargetCoordinate.OfficeNumber).FirstOrDefault();
-                */
+                
                 if (user != null)
                 {
                     response.TargetCoordinate.Detail = user.DisplayName;
@@ -78,13 +83,18 @@ namespace IDBMaps.Controllers.Api
                 }
 
             }
+
+            
             return response;        
         }
 
         [HttpGet]
-        [CacheOutput(ClientTimeSpan = 0, ServerTimeSpan = 1000)]
-        public MapResponse GetFromCoordinates(int BuildingId, int Floor, double Latitude, double Longitude)
+        //[CacheOutput(ClientTimeSpan = 0, ServerTimeSpan = 1000)]
+        public MapResponse GetFromCoordinates(int BuildingId, int Floor, double Latitude, double Longitude,String DeviceName)
         {
+            Log.CreateLog(DeviceName, String.Format("Get From coordinates {0}:{1} for Floor {2}", Latitude, Longitude, Floor.ToString()));
+
+
             var db = Database.Open();
             MapResponse response = new MapResponse();
             response.Building = db.Building.FindByBuildingId(BuildingId);
@@ -107,14 +117,17 @@ namespace IDBMaps.Controllers.Api
                 }
             }
             catch(Exception ex) { }
+
+            
             return response;
         }
 
 
         [HttpGet]
-        [CacheOutput(ClientTimeSpan = 0, ServerTimeSpan = 1000)]
-        public List<Coordinate> GetOfficeByType(int BuildingId, int Floor, string TypeCode)
+        //[CacheOutput(ClientTimeSpan = 0, ServerTimeSpan = 1000)]
+        public List<Coordinate> GetOfficeByType(int BuildingId, int Floor, string TypeCode, String DeviceName)
         {
+            Log.CreateLog(DeviceName, String.Format("Show Office Type {0} for Floor {1}", TypeCode, Floor.ToString()));
 
             List<Coordinate> result = new List<Coordinate>();
             try
@@ -123,7 +136,7 @@ namespace IDBMaps.Controllers.Api
                 OfficeType type = db.OfficeType.FindByCode(TypeCode);
                 FloorMap floor = db.FloorMap.FindAllBy(BuildingId: BuildingId, Floor: Floor).FirstOrDefault();
                 List<Office> offices = db.Office.FindAllBy(OfficeType: type.OfficeTypeId, FloorMapId: floor.FloorMapId).With(db.Office.OfficeType.As("Type")); ;
-                List<Office> officesrprivate = db.Office.FindAllBy(OfficeType: 5, FloorMapId: floor.FloorMapId).With(db.Office.OfficeType.As("Type")); ;
+                List<Office> officesrprivate = db.Office.FindAllBy(OfficeType: 6, FloorMapId: floor.FloorMapId).With(db.Office.OfficeType.As("Type")); ;
 
                 offices.AddRange(officesrprivate);
                 //get status
@@ -136,6 +149,8 @@ namespace IDBMaps.Controllers.Api
 
             }
             catch (Exception ex) { }
+
+           
             return result;
         }
 

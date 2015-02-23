@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 
-namespace IDBMaps.Models
+namespace IDBMaps.Models.AC
 {
     public class ActiveDirectory
     {
@@ -82,9 +82,12 @@ namespace IDBMaps.Models
 
                 foreach (SearchResult result in searcher.FindAll())
                 {
-                    DirectoryUser du = new DirectoryUser(result);
+                    if (result.GetDirectoryEntry().Properties["sn"].Count > 0)
+                    {
+                        DirectoryUser du = new DirectoryUser(result);
 
-                    list.Add(du);
+                        list.Add(du);
+                    }
                 }
             }
 
@@ -108,11 +111,26 @@ namespace IDBMaps.Models
                 if (criteria.Length == 5)
                     criteria = criteria.Substring(0, 2) + "0" + criteria.Substring(2, 3);
 
-                fieldsSb.Append(string.Format("(|(physicalDeliveryOfficeName={0})", criteria));
-                fieldsSb.Append(string.Format("(SAMAccountName={0}*))", criteria.Substring(0,2)+"-"+criteria.Substring(2)));
+                fieldsSb.Append(string.Format("(|(physicalDeliveryOfficeName=*{0}*)", criteria));
+                fieldsSb.Append(string.Format("(SAMAccountName={0}*))", criteria.Substring(0, 2) + "-" + criteria.Substring(2)));
             }
             else
+            {
+                if (criteria.Contains(' '))
+                {
+                    String[] split = criteria.Split(' ');
+                    if (split.Length == 2)
+                    {
+                        string firstName = split[0];
+                        string lastName = split[1];
+                        if(lastName.Length>3)
+                        fieldsSb.Append(string.Format("|(DisplayName=*{0}*)", lastName));
+                    }
+                    
+                }
+
                 fieldsSb.Append(string.Format("(DisplayName=*{0}*)", criteria));
+            }
          //   fieldsSb.Append(string.Format("(SAMAccountName={0}*)", criteria));
           //  fieldsSb.Append(string.Format("(sn={0}*)", criteria));
         //    fieldsSb.Append(string.Format("(physicalDeliveryOfficeName={0}))", criteria));
@@ -130,9 +148,11 @@ namespace IDBMaps.Models
 
                 foreach (SearchResult result in searcher.FindAll())
                 {
-                    DirectoryUser du = new DirectoryUser(result);
 
-                    list.Add(du);
+                        DirectoryUser du = new DirectoryUser(result);
+
+                        if(du.FirstName != String.Empty && du.LastName !=String.Empty)
+                            list.Add(du);
                 }
             }
 
@@ -220,5 +240,9 @@ namespace IDBMaps.Models
 
             return list;
         }
+    
+    
+
+
     }
 }

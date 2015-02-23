@@ -60,7 +60,7 @@ namespace TP.Wayfinding.Site.Controllers.Api
                 nodeModel.Identifier = (string)row.Identifier;
                 nodeModel.Latitude = (double)row.Latitude;
                 nodeModel.Longitude = (double)row.Longitude;
-                nodeModel.FloorConnector = (bool)row.NodeFloorConnector;
+                nodeModel.FloorConnector = (int)row.NodeFloorConnector > 0;
 
                 if (row.ConnectionId == null)
                     continue;

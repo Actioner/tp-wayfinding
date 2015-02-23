@@ -53,24 +53,43 @@ overlaytiler.AffineOverlay = function (img, floor) {
     canvas.style.position = 'absolute';
     this.ctx = canvas.getContext('2d');
     this.ctx.transform = new Transform(this.ctx);
-    this.origImg_ = img;
+    var canvasImg = img;
+    var saveableImg = img;
 
     //maximum width for canvas
-    var maxWidth = 500;
-    if (img.width > maxWidth) {
-        var hermite = new resample.Hermite(img);
-        var height = img.height * maxWidth / img.width;
+    var maxCanvasWidth = 500;
+    if (img.width > maxCanvasWidth) {
+        var canvasHermite = new resample.Hermite(img);
+        var height = img.height * maxCanvasWidth / img.width;
 
         var tmpCanvas = document.createElement('canvas');
         tmpCanvas.height = height;
-        tmpCanvas.width = maxWidth;
-        hermite.resize(maxWidth, height);
-        tmpCanvas.getContext("2d").putImageData(hermite.getResult(), 0, 0);
-        img = new Image();
-        img.src = tmpCanvas.toDataURL('image/png');
+        tmpCanvas.width = maxCanvasWidth;
+        canvasHermite.resize(maxCanvasWidth, height);
+        tmpCanvas.getContext("2d").putImageData(canvasHermite.getResult(), 0, 0);
+        canvasImg = new Image();
+        canvasImg.src = tmpCanvas.toDataURL('image/png');
     }
-    
-    this.img_ = img;
+
+    this.img_ = canvasImg;
+
+    //maximum saveable image
+    var maxSaveableWidth = 1500;
+    if (img.width > maxSaveableWidth) {
+        var saveableHermite = new resample.Hermite(img);
+        var cWidth = maxSaveableWidth;
+        var cHeight = img.height * maxSaveableWidth / img.width;
+
+        var tmpCanvas2 = document.createElement('canvas');
+        tmpCanvas2.height = cHeight;
+        tmpCanvas2.width = cWidth;
+        saveableHermite.resize(cWidth, cHeight);
+        tmpCanvas2.getContext("2d").putImageData(saveableHermite.getResult(), 0, 0);
+        saveableImg = new Image();
+        saveableImg.src = tmpCanvas2.toDataURL('image/png');
+    }
+    this.origImg_ = saveableImg;
+
 };
 
 overlaytiler.AffineOverlay.prototype = new google.maps.OverlayView;
@@ -196,12 +215,15 @@ overlaytiler.AffineOverlay.prototype.setMapDraggable_ = function (draggable) {
     this.getMap().set('draggable', draggable);
 };
 
+
 overlaytiler.AffineOverlay.prototype.refreshImageData = function () {
     var img = this.origImg_;
     var resultMatrix = this.ctx.transform.getMatrix();
     var tmpCanvas = document.createElement('canvas');
     var tmpContext = tmpCanvas.getContext('2d');
 
+    var cWidth = img.width;
+    var cHeight = img.height;
     var scHor = resultMatrix[0];
     var skHor = resultMatrix[1];
     var skVer = resultMatrix[2];
@@ -210,9 +232,9 @@ overlaytiler.AffineOverlay.prototype.refreshImageData = function () {
     var moVer = resultMatrix[5];
 
     var topLeft = new Point(moHor, moVer);
-    var topRight = new Point(scHor * img.width + moHor, skHor * img.width + moVer);
-    var bottomLeft = new Point(skVer * img.height + moHor, scVer * img.height + moVer);
-    var bottomRight = new Point((scHor * img.width) + (skVer * img.height) + moHor, (skHor * img.width) + (scVer * img.height) + moVer);
+    var topRight = new Point(scHor * cWidth + moHor, skHor * cWidth + moVer);
+    var bottomLeft = new Point(skVer * cHeight + moHor, scVer * cHeight + moVer);
+    var bottomRight = new Point((scHor * cWidth) + (skVer * cHeight) + moHor, (skHor * cWidth) + (scVer * cHeight) + moVer);
     var resultTopLeft = new Point(Math.min(topLeft.x, topRight.x, bottomLeft.x, bottomRight.x), Math.min(bottomLeft.y, bottomRight.y, topLeft.y, topRight.y));
     var resultBottomRight = new Point(Math.max(topLeft.x, topRight.x, bottomLeft.x, bottomRight.x), Math.max(bottomLeft.y, bottomRight.y, topLeft.y, topRight.y));
     var offset = new Point(resultTopLeft.x < 0 ? Math.abs(resultTopLeft.x) : 0, resultTopLeft.y < 0 ? Math.abs(resultTopLeft.y) : 0);
@@ -232,7 +254,7 @@ overlaytiler.AffineOverlay.prototype.refreshImageData = function () {
     tmpCanvas.width = resultBottomRight.x;
     tmpCanvas.height = resultBottomRight.y;
     tmpContext.setTransform(scHor, skHor, skVer, scVer, offset.x + moHor, offset.y + moVer);
-    tmpContext.drawImage(img, 0, 0, img.width, img.height);
+    tmpContext.drawImage(img, 0, 0, cWidth, cHeight);
 
     var resultCanvas = document.createElement('canvas');
     resultCanvas.width = resultBottomRight.x - resultTopLeft.x;

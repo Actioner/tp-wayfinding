@@ -9,6 +9,17 @@ namespace IDBMaps.Models
     [DataContract]
     public class Device
     {
+        private int deviceId;
+
+        [DataMember]
+        public int DeviceId
+        {
+            get { return deviceId; }
+            set { deviceId = value; }
+        }
+
+
+
         private string mac;
 
         [DataMember]
@@ -64,6 +75,17 @@ namespace IDBMaps.Models
              get { return building; }
              set { building = value; }
          }
+
+         private DateTime? lastTick;
+
+         [DataMember]
+         public DateTime? LastTick
+         {
+             get { return lastTick; }
+             set { lastTick = value; }
+         }
+
+
 
     }
 }

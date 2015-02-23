@@ -67,8 +67,8 @@ function ViewModel() {
         }, function (data) {
             ko.mapping.fromJS(data, {}, self.building);
 
-            var ne = new google.maps.LatLng(self.building.nwLatitude(), self.building.nwLongitude());
-            var sw = new google.maps.LatLng(self.building.seLatitude(), self.building.seLongitude());
+            var ne = new google.maps.LatLng(self.building.nwLatitude(), self.building.seLongitude());
+            var sw = new google.maps.LatLng(self.building.seLatitude(), self.building.nwLongitude());
 
             if (self.isUpdate) {
                 if (self.data.neLatitude() != 0 && self.data.neLongitude() != 0

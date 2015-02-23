@@ -101,6 +101,11 @@ table tr th { color: #007AFF;}
   background-size: cover;
 }
 
+.login-imgwayfinding-body .container {
+    margin-left: 158px;
+    margin-top: 265px;
+}
+
 .login-form {
     max-width: 350px;
     margin: 0px auto 0;

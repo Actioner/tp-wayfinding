@@ -701,84 +701,6 @@
     <Content Include="Content\karmanta\js\scripts.js" />
     <Content Include="Content\karmanta\js\sliders.js" />
     <Content Include="Content\karmanta\js\sparkline-chart.js" />
-    <Content Include="Content\maps\IDB-0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\IDB-1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\IDB-10.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\IDB-11.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\IDB-12.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\IDB-2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\IDB-3.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\IDB-4.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\IDB-5.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\IDB-6.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\IDB-7.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\IDB-8.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\IDB-9.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-0.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-10.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-11.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-12.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-3.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-4.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-5.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-6.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-7.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-8.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\maps\Inter-American-Development-Bank-HQ-9.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Content\tiler_orig.css" />
     <Content Include="Content\uploader.css" />
@@ -927,6 +849,7 @@
     <Content Include="Content\karmanta\assets\gritter\bower.json" />
     <Content Include="Content\karmanta\assets\gritter\package.json" />
     <Content Include="Content\karmanta\assets\gritter\README.markdown" />
+    <None Include="Properties\PublishProfiles\deb.pubxml" />
     <None Include="Properties\PublishProfiles\Dev.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\html5shiv.js" />
@@ -1203,6 +1126,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\karmanta\assets\jquery-file-upload\server\php\files\thumbnail\" />
+    <Folder Include="Content\maps\" />
+    <Folder Include="Content\people\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TP.Wayfinding.Domain\TP.Wayfinding.Domain.csproj">

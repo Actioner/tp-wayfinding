@@ -14,5 +14,6 @@ namespace TP.Wayfinding.Domain
         public string Department { get; set; }
         public string Division { get; set; }
         public string ImagePath { get; set; }
+        public string OfficeNumber { get; set; }
     }
 }

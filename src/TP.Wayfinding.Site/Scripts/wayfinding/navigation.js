@@ -177,7 +177,7 @@ function NavigationMap() {
         self.connectionInfoWindow_.close();
     };
 
-    self.cancelConnection = function (connection) {
+    self.cancelConnection = function () {
         self.closeConnectionInfoReady();
         self.connectionInfoWindow_.close();
 
@@ -187,11 +187,13 @@ function NavigationMap() {
     self.nodeOnClick_ = function (vertex) {
         var selectedVertex = self.graph.getSelected();
         if (selectedVertex && !selectedVertex.equals(vertex)) {
-            var poly = new google.maps.Polyline(self.polyOptions(true));
+            //var poly = new google.maps.Polyline(self.polyOptions(true));
             var connection = new Connection();
             connection.id(0);
             connection.nodeAId(selectedVertex.node.id());
             connection.nodeBId(vertex.node.id());
+            connection.nodeBId(vertex.node.id());
+            connection.floorMapId(self.floorMapId());
             connection.show(true);
             connection.floorConnection(false);
 
@@ -218,7 +220,7 @@ function NavigationMap() {
 
     self.connectionOnRightClick_ = function (edge) {
         self.graph.removeEdge(edge);
-        self.saveConnection(edge.connection);
+        self.connectionManager.delete(edge.connection);
     };
     
     self.nodeOnDrag_ = function (vertex) {
@@ -297,6 +299,7 @@ function NavigationMap() {
                 connection.nodeBId(node.id());
                 connection.show(true);
                 connection.floorConnection(false);
+                connection.floorMapId(self.floorMapId());
 
                 var added = self.addConnection(connection);
                 if (added) {
@@ -353,8 +356,8 @@ function NavigationMap() {
         var ne = new google.maps.LatLng(building.nwLatitude(), building.seLongitude());
         var sw = new google.maps.LatLng(building.seLatitude(), building.nwLongitude());
 
-        if (floor.neLatitude() != 0 && floor.neLongitude() != 0
-            && floor.swLongitude() != 0 && floor.swLongitude() != 0) {
+        if (floor.neLatitude() !== 0 && floor.neLongitude() !== 0
+            && floor.swLongitude() !== 0 && floor.swLongitude() !== 0) {
             ne = new google.maps.LatLng(floor.neLatitude(), floor.neLongitude());
             sw = new google.maps.LatLng(floor.swLatitude(), floor.swLongitude());
         }

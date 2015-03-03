@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using AutoMapper;
-using Fasterflect;
-using TP.Wayfinding.Site.Components.Extensions;
-using TP.Wayfinding.Resources;
 using TP.Wayfinding.Domain;
-using TP.Wayfinding.Site.Models.Building;
-using TP.Wayfinding.Site.Models.Floor;
+using TP.Wayfinding.Resources;
+using TP.Wayfinding.Site.Components.Extensions;
 using TP.Wayfinding.Site.Components.Settings;
-using System.IO;
-using System.Drawing;
-using System.Drawing.Imaging;
-using TP.Wayfinding.Site.Models.Office;
-using TP.Wayfinding.Site.Models.OfficeType;
-using TP.Wayfinding.Site.Models.Node;
+using TP.Wayfinding.Site.Models.Building;
 using TP.Wayfinding.Site.Models.Connection;
 using TP.Wayfinding.Site.Models.Device;
+using TP.Wayfinding.Site.Models.Floor;
+using TP.Wayfinding.Site.Models.Node;
+using TP.Wayfinding.Site.Models.Office;
+using TP.Wayfinding.Site.Models.OfficeType;
 using TP.Wayfinding.Site.Models.Person;
 
 namespace TP.Wayfinding.Site.Components.AutoMapper
@@ -91,8 +90,7 @@ namespace TP.Wayfinding.Site.Components.AutoMapper
             Mapper.CreateMap<Connection, ConnectionModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ConnectionId));
             Mapper.CreateMap<ConnectionModel, Connection>()
-                .ForMember(dest => dest.ConnectionId, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.FloorMapId, opt => opt.Ignore());
+                .ForMember(dest => dest.ConnectionId, opt => opt.MapFrom(src => src.Id));
 
             Mapper.CreateMap<Device, DeviceModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.DeviceId));
@@ -109,6 +107,7 @@ namespace TP.Wayfinding.Site.Components.AutoMapper
                                     GlobalSettings.PeopleFolder.Replace("~", "") + src.ImagePath)));
             Mapper.CreateMap<PersonModel, Person>()
                 .ForMember(dest => dest.PersonId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.OfficeNumber, opt => opt.Ignore())
                 .ForMember(dest => dest.ImagePath,
                     opt => opt.MapFrom(src => string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme,
                                     HttpContext.Current.Request.Url.Authority,

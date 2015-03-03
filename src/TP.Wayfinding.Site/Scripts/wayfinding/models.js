@@ -63,6 +63,7 @@ function Connection() {
     self.nodeBId = ko.observable();
     self.show = ko.observable();
     self.floorConnection = ko.observable();
+    self.floorMapId = ko.observable();
 }
 
 function Device() {

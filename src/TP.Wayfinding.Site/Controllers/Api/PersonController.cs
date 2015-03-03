@@ -107,6 +107,10 @@ namespace TP.Wayfinding.Site.Controllers.Api
             value.Id = id;
             MappingEngine.Map(value, person);
 
+            Office office = db.Office.Get(person.OfficeId);
+            person.OfficeNumber = office.OfficeNumber;
+
+
             db.Person.Update(person);
             return Ok(MappingEngine.Map<PersonModel>(person));
         }

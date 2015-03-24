@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/src/IDBMaps/bin
+/src/IDBMaps/obj/Debug
+/src/IDBMaps.Import/obj/x86/Debug
+/src/TP.Wayfinding.Domain/obj/Debug
+/src/TP.Wayfinding.Resources/obj/Debug
+/src/TP.Wayfinding.Site/bin
+/src/TP.Wayfinding.Site/Content/people
+/src/TP.Wayfinding.Site/obj/Debug

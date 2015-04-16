@@ -1,0 +1,47 @@
+﻿@using IDB.Navigator.Resources
+@using IDB.Navigator.Site.Components.Extensions
+@using IDB.Navigator.Site.Areas.Admin.Models.Floor
+
+@model CreateFloorModel
+
+<form action="#" method="post" class="form-horizontal form-validate" role="form" data-bind="submit: save">
+    <section class="panel col-lg-12">
+        <header class="panel-heading">Create Floor</header>
+        <div class="panel-body">
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.BuildingId, new { data_bind = "value: data.buildingId" })
+            @Html.HiddenFor(m => m.NeLatitude, new { data_bind = "value: data.neLatitude" })
+            @Html.HiddenFor(m => m.NeLongitude, new { data_bind = "value: data.neLongitude" })
+            @Html.HiddenFor(m => m.SwLatitude, new { data_bind = "value: data.swLatitude" })
+            @Html.HiddenFor(m => m.SwLongitude, new { data_bind = "value: data.swLongitude" })
+            @Html.HiddenFor(m => m.Image, new { data_bind = "value: data.image" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Floor, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Floor, new { @class = "form-control", data_bind = "value: data.floor, css: { error: typeof(errors.floor()) !== 'undefined' }" })
+                    @Html.NavigatorValidationMessageFor(m => m.Floor, new { @data_bind = "text: errors.floor" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Description, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control", data_bind = "value: data.description, css: { error: typeof(errors.description()) !== 'undefined' }" })
+                    @Html.NavigatorValidationMessageFor(m => m.Description, new { @data_bind = "text: errors.description" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Map</label>
+                <div class="col-sm-10">
+                    <div id="map"></div>
+                    @Html.NavigatorValidationMessageFor(m => m.Image, new { @data_bind = "text: errors.floor" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <a href="@Url.Action("Index", new { buildingId = Model.BuildingId })" class="btn btn-default">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>

@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TP Navigator">
+    <meta name="author" content="Jorge Rodriguez Breuning, Ignacio Raul Cerrato">
+    <meta name="keyword" content="Indoor, Map, Navigator, Navigation, GPS">
+    <link rel="shortcut icon" href="~/Content/karmanta/img/favicon.png">
+    <title>@(ViewBag.Title + " - Navigator")</title>
+
+    @Styles.Render("~/Content/karmanta/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+    <!--[if lt IE 9]>
+    <script src=""~/Scripts/html5shiv.js"></script>
+    <script src=""~/Scripts/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body class="login-imgnavigator-body">
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -10,3 +10,15 @@
 /src/TP.Wayfinding.Site/bin
 /src/TP.Wayfinding.Site/Content/people
 /src/TP.Wayfinding.Site/obj/Debug
+/packages
+/src/IDB.Navigator.Domain/bin/Debug
+/src/IDB.Navigator.Domain/obj/Debug
+/src/IDB.Navigator.Resources/bin/Debug
+/src/IDB.Navigator.Resources/obj/Debug
+/src/IDB.Navigator.Site/bin
+/src/IDB.Navigator.Site/Content/people
+/src/IDB.Navigator.Site/obj/Debug
+/src/IDB.Navigator.Site/Properties/PublishProfiles
+*.user
+/src/IDBMaps.Import/bin/Debug
+*.suo

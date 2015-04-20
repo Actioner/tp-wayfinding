@@ -208,6 +208,17 @@ function MarkerMap() {
         mapTypeControl: true
     });
 
+    self.map_.setOptions({
+        styles: [
+          {
+              "featureType": "landscape.man_made",
+              "stylers": [
+                { "visibility": "off" }
+              ]
+          }
+        ]
+    });
+
     self.toggle = function (markerPoint) {
         if (markerPoint.marker.id() != self.selectedPoint().marker.id())
             self.selectedPoint().isSelected(false);

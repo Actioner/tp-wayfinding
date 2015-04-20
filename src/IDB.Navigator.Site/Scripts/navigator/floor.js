@@ -56,8 +56,22 @@ function ViewModel() {
 
     var dropZone = document.getElementById('map');
     var map = new google.maps.Map(dropZone, {
-        mapTypeId: 'roadmap'
+        mapTypeId: 'roadmap',
+        panControl: false,
+        zoomControl: true,
+        scaleControl: false,
+        streetViewControl: false,
+        overviewMapControl: false,
+        mapTypeControl: true
     });
+    map.setOptions({ styles: [
+      {
+          "featureType": "landscape.man_made",
+          "stylers": [
+            { "visibility": "off" }
+          ]
+      }
+    ] });
 
 
 

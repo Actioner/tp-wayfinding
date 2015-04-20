@@ -38,7 +38,23 @@ function AddressMap() {
         map = new google.maps.Map(document.getElementById("map"), {
             center: new google.maps.LatLng(36, -208),
             zoom: 1,
-            mapTypeId: 'roadmap'
+            mapTypeId: 'roadmap',
+            panControl: false,
+            zoomControl: true,
+            scaleControl: false,
+            streetViewControl: false,
+            overviewMapControl: false,
+            mapTypeControl: true
+        });
+        map.setOptions({
+            styles: [
+              {
+                  "featureType": "landscape.man_made",
+                  "stylers": [
+                    { "visibility": "off" }
+                  ]
+              }
+            ]
         });
 
         addressInput = $("#Address").get(0);

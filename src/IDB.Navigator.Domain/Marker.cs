@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IDB.Navigator.Domain
 {
-    public class Marker
+    public class Marker : IGeo
     {
         public int MarkerId { get; set; }
         public string DisplayName { get; set; }

@@ -1,0 +1,69 @@
+﻿@model System.Web.Http.Description.IApiExplorer
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+         @Styles.Render(" ~/Content/Help.css")
+    <title>ApiHelp</title>
+</head>
+<body>
+    <div id="body">
+        <section class="featured">
+            <div class="content-wrapper">
+                <hgroup class="title">
+                    <h1>IDB Navigator API Help Page</h1>
+                </hgroup>
+            </div>
+        </section>
+       <section class="content-wrapper main-content clear-fix">
+           <h3>APIs</h3>
+           <ul>
+           @foreach (var api in Model.ApiDescriptions)
+           {
+               <li>
+               <h5>@api.HttpMethod @api.RelativePath</h5>
+  @*             <p>@api.Documentation</p>*@
+                
+               @if (api.ParameterDescriptions.Count > 0)
+               {
+                   <h6>Parameters</h6>
+                   <ul>
+                   @foreach (var parameter in api.ParameterDescriptions)
+                   {
+                       <li>@parameter.Name (@parameter.Source)</li>
+                   }
+                   </ul>
+               }
+                @if (api.ActionDescriptor.ReturnType != null)
+                {
+                   <h6>Returns</h6>
+                    @api.ActionDescriptor.ReturnType.Name
+                   <ul>
+                   @foreach (var prop in @api.ActionDescriptor.ReturnType.GetProperties())
+                   {
+                       <li>@prop.Name</li>
+                       try
+                       {
+                           var obj = Activator.CreateInstance(prop.PropertyType);
+
+                           if (obj.GetType().GetProperties().Length > 0)
+                           {
+                            <ul>
+                                @foreach (var prop2 in obj.GetType().GetProperties())
+                                {
+                                 <li>@prop2.Name</li>
+                                }
+                            </ul>
+                           }
+                       }catch{}
+                   }
+                   </ul>
+                }
+               </li>
+           }
+           </ul>
+       </section>
+   </div> 
+</body>
+</html>

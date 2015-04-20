@@ -12,7 +12,7 @@ using IDB.Navigator.Site.Areas.Admin.Models.Account;
 
 namespace IDB.Navigator.Site.Areas.Admin.Controllers.Api
 {
-    [Authorize(Users= "IDB\\jfrodriguez,IDB\\rcerrato")]
+    [Authorize(Users = "IDB\\jfrodriguez,IDB\\rcerrato,IDB\\juanjf")]
     public abstract class BaseApiController : ApiController
     {
         protected readonly IMappingEngine MappingEngine;

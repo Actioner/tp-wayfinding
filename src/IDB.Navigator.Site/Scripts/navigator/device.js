@@ -175,6 +175,17 @@ function DeviceMap() {
         mapTypeControl: true
     });
 
+    self.map_.setOptions({
+        styles: [
+             {
+                 "featureType": "landscape.man_made",
+                 "stylers": [
+                   { "visibility": "off" }
+                 ]
+             }
+        ]
+    });
+
     self.toggle = function (devicePoint) {
         if (devicePoint.device.id() != self.selectedPoint().device.id())
             self.selectedPoint().isSelected(false);

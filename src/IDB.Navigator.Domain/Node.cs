@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 
 namespace IDB.Navigator.Domain
 {
-    public class Node
+    public class Node : IGeo
     {
         public int NodeId { get; set; }
         public int FloorMapId { get; set; }

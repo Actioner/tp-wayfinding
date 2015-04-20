@@ -1,0 +1,172 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ng-controller="MapCtrl" style="width:100%;height:100%">
+    <div id="map_canvas" style="width:100%;height:100%">
+    </div>
+</div>
+<div ng-controller="MapCtrl" id="floornavbar">
+    <span class="segmented" >
+        <label ng-repeat="floormap in Building.FloorMaps"><input type="radio" name="floor" value="{{ floormap.Floor }}" checked><span class="label">{{ floormap.Description }}</span></label>
+    </span>
+</div>
+
+<div  id="searchbar">
+		<div id="tfnewsearch">
+		        <input type="text" class="tftextinput" name="q" size="40" maxlength="120"><input type="submit" value="search" class="tfbutton">
+		</div>
+</div>
+
+
+ <script type="text/javascript">
+     var app = angular.module('mapsApp', ['ngResource']);
+
+     app.factory("Device", function ($resource) {
+         return $resource("/api/device/?deviceName=:DeviceName");
+     });
+
+     app.factory("MapCoordinates", function ($resource) {
+         return $resource(" api/Map?Floor=:Floor&Latitude=:Latitude&Longitude=:Longitude&DeviceName=:DeviceName");
+     });
+
+     app.controller('MapCtrl', function ($scope, Device, MapCoordinates) {
+
+         Device.get({ DeviceName: 'DEFAULT' }, function (data) {
+             var mapOptions = {
+                 zoom: 20,
+                 center: new google.maps.LatLng(data.Device.Latitude, data.Device.Longitude),
+                 mapTypeId: google.maps.MapTypeId.ROADMAP,
+                 mapTypeControl: false,
+                 zoomControl: true,
+                 zoomControlOptions: {
+                     style: google.maps.ZoomControlStyle.LARGE,
+                     position: google.maps.ControlPosition.LEFT_TOP
+                 },
+                 scaleControl: true,
+                 streetViewControl: false,
+                 minZoom: 20,
+                 buildingsEnabled :false
+             }
+             $scope.Building = data.Building;
+             $scope.map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+             $scope.DataMarkers = data.Building.FloorMaps[data.Device.FloorMap.Floor].Markers;
+
+             $scope.allowedBounds = new google.maps.LatLngBounds(
+                  new google.maps.LatLng($scope.Building.SeLatitude, $scope.Building.NwLongitude),
+                 new google.maps.LatLng($scope.Building.NwLatitude, $scope.Building.SeLongitude)
+                 );
+
+             $scope.floormap = new google.maps.GroundOverlay(data.Building.FloorMaps[data.Device.FloorMap.Floor].ImagePath, $scope.allowedBounds);
+             $scope.floormap.setMap($scope.map);
+
+             google.maps.event.addListener($scope.floormap, 'click', function (event) {
+                 var floor = document.querySelector('input[name="floor"]:checked').value;
+   
+                 MapCoordinates.get({ Floor: floor, Latitude: event.latLng.lat(), Longitude: event.latLng.lng(), DeviceName: 'DEFAULT' }, function (data) {
+                     createMarker(data.TargetMarker);
+
+                 });
+             });
+
+             var floornavbar = document.getElementById('floornavbar');
+             google.maps.event.addDomListener(floornavbar, 'click', function () {
+                 $scope.floormap.setMap(null);
+                 $scope.floormap = new google.maps.GroundOverlay(data.Building.FloorMaps[document.querySelector('input[name="floor"]:checked').value].ImagePath, $scope.allowedBounds);
+                 $scope.floormap.setMap($scope.map);
+
+                 for (i = 0; i < $scope.markers.length; i++) {
+                     $scope.markers[i].setMap(null);
+                 }
+
+                 $scope.markers = [];
+
+                /* $scope.DataMarkers = data.Building.FloorMaps[document.querySelector('input[name="floor"]:checked').value].Markers;
+                 for (i = 0; i < $scope.DataMarkers.length; i++) {
+                     createMarker($scope.DataMarkers[i]);
+                 }*/
+
+                 google.maps.event.addListener($scope.floormap, 'click', function (event) {
+                     var floor = document.querySelector('input[name="floor"]:checked').value;
+
+                     MapCoordinates.get({ Floor: floor, Latitude: event.latLng.lat(), Longitude: event.latLng.lng(), DeviceName: 'DEFAULT' }, function (data) {
+                         createMarker(data.TargetMarker);
+
+                     });
+                 });
+
+             });
+
+             floornavbar.index = 2;
+             $scope.map.controls[google.maps.ControlPosition.BOTTOM].push(floornavbar);
+
+
+             var searchbar = document.getElementById('searchbar');
+
+             google.maps.event.addDomListener(searchbar, 'click', function () {              
+
+             });
+
+             searchbar.index = 1;
+             $scope.map.controls[google.maps.ControlPosition.TOP].push(searchbar);
+
+
+             
+
+            // Listen for the dragend event
+             google.maps.event.addListener($scope.map, 'dragend', function () {
+                 if ($scope.allowedBounds.contains($scope.map.getCenter())) return;
+
+                // Out of bounds - Move the map back within the bounds
+
+                 var c = $scope.map.getCenter(),
+                    x = c.lng(),
+                    y = c.lat(),
+                    maxX = $scope.allowedBounds.getNorthEast().lng(),
+                    maxY = $scope.allowedBounds.getNorthEast().lat(),
+                    minX = $scope.allowedBounds.getSouthWest().lng(),
+                    minY = $scope.allowedBounds.getSouthWest().lat();
+
+                if (x < minX) x = minX;
+                if (x > maxX) x = maxX;
+                if (y < minY) y = minY;
+                if (y > maxY) y = maxY;
+
+                $scope.map.setCenter(new google.maps.LatLng(y, x));
+             });
+
+            
+         });
+
+            
+
+         $scope.markers = [];
+
+         var infoWindow = new google.maps.InfoWindow();
+
+         var createMarker = function (info) {
+
+             var marker = new google.maps.Marker({
+                 map: $scope.map,
+                 position: new google.maps.LatLng(info.Latitude, info.Longitude),
+                 title: info.OfficeNumber
+             });
+             marker.content = '<div class="infoWindowContent">' + info.OfficeNumber + '</div>';
+
+             google.maps.event.addListener(marker, 'click', function () {
+                 infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
+                 infoWindow.open($scope.map, marker);
+             });
+
+             $scope.markers.push(marker);
+         }
+
+         $scope.openInfoWindow = function (e, selectedMarker) {
+             e.preventDefault();
+             google.maps.event.trigger(selectedMarker, 'click');
+         }
+
+     });
+
+ </script>

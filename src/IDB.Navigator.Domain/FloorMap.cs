@@ -15,5 +15,6 @@ namespace IDB.Navigator.Domain
         public float NeLongitude { get; set; }
         public float SwLatitude { get; set; }
         public float SwLongitude { get; set; }
+        public IList<Marker> Markers { get; set; }
     }
 }

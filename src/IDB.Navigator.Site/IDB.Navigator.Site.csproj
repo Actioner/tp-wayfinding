@@ -84,6 +84,12 @@
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Owin.2.1.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Exchange.WebServices">
+      <HintPath>..\..\packages\Microsoft.Exchange.WebServices.2.2\lib\40\Microsoft.Exchange.WebServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Exchange.WebServices.Auth">
+      <HintPath>..\..\packages\Microsoft.Exchange.WebServices.2.2\lib\40\Microsoft.Exchange.WebServices.Auth.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -149,6 +155,9 @@
     <Reference Include="Simple.Data.SqlServer">
       <HintPath>..\..\packages\Simple.Data.SqlServer.0.19.0.0\lib\net40\Simple.Data.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="System.Device" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -219,6 +228,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Help.css" />
+    <Content Include="Content\Home.css" />
     <Content Include="Content\karmanta\img\backgrounds\bg-navigator.jpg" />
     <Content Include="Content\mapIcons\blu-circle-lv.png" />
     <Content Include="Content\mapIcons\blu-conf.png" />
@@ -723,6 +734,8 @@
     <Content Include="fonts\ElegantIcons.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\angular-resource.min.js" />
+    <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\common.js" />
     <Content Include="Scripts\d3.v3.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -868,6 +881,8 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <None Include="Properties\PublishProfiles\deb.pubxml" />
     <None Include="Properties\PublishProfiles\Dev.pubxml" />
+    <Content Include="Scripts\angular-resource.min.js.map" />
+    <Content Include="Scripts\angular.min.js.map" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\html5shiv.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -1043,7 +1058,17 @@
     <Compile Include="Areas\Admin\Controllers\NavigationController.cs" />
     <Compile Include="Areas\Admin\Controllers\MarkerController.cs" />
     <Compile Include="Areas\Admin\Controllers\FloorController.cs" />
+    <Compile Include="Controllers\ApiHelpController.cs" />
+    <Compile Include="Controllers\Api\DeviceSearchController.cs" />
+    <Compile Include="Controllers\Api\MapController.cs" />
+    <Compile Include="Controllers\Api\ReportController.cs" />
+    <Compile Include="Controllers\Api\SearchController.cs" />
+    <Compile Include="Controllers\Api\SendMapsController.cs" />
+    <Compile Include="Controllers\ContentController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Customs\ImageResult.cs" />
+    <Compile Include="Customs\ImageUtils.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1084,6 +1109,20 @@
     <Compile Include="Areas\Admin\Models\Floor\FloorModel.cs" />
     <Compile Include="Areas\Admin\Models\Floor\CreateFloorModel.cs" />
     <Compile Include="Areas\Admin\Models\Floor\EditFloorModel.cs" />
+    <Compile Include="Helpers\ActiveDirectory.cs" />
+    <Compile Include="Helpers\ActiveDirectoryDB.cs" />
+    <Compile Include="Helpers\CalendarManager.cs" />
+    <Compile Include="Helpers\CalendarManagerMock.cs" />
+    <Compile Include="Helpers\GeoHelper.cs" />
+    <Compile Include="Helpers\LogHelper.cs" />
+    <Compile Include="Helpers\MarkerHelper.cs" />
+    <Compile Include="Helpers\RouteHelper.cs" />
+    <Compile Include="Models\DeviceResponse.cs" />
+    <Compile Include="Models\DirectorySearchCriteria.cs" />
+    <Compile Include="Models\DirectoryUser.cs" />
+    <Compile Include="Models\FloorConnection.cs" />
+    <Compile Include="Models\MapResponse.cs" />
+    <Compile Include="Models\Route.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1130,6 +1169,12 @@
     <Content Include="Scripts\select2-3.5.1\select2_locale_en.js.template" />
     <Content Include="Areas\Admin\Views\Shared\EditorTemplates\EditPersonModel.cshtml" />
     <Content Include="Areas\Admin\Views\Person\View.cshtml" />
+    <Content Include="Views\ApiHelp\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\IndexOLD.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1142,8 +1187,6 @@
     <Folder Include="Content\karmanta\assets\jquery-file-upload\server\php\files\thumbnail\" />
     <Folder Include="Content\maps\" />
     <Folder Include="Content\people\" />
-    <Folder Include="Controllers\Api\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

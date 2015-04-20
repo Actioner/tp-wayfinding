@@ -79,6 +79,7 @@ namespace IDB.Navigator.Site.Components.AutoMapper
             Mapper.CreateMap<FloorModel, FloorMap>()
                 .ForMember(dest => dest.FloorMapId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ImagePath, opt => opt.Ignore())
+                .ForMember(dest => dest.Markers, opt => opt.Ignore())
                 .ForMember(dest => dest.ImageFolder, opt => opt.Ignore());
 
             Mapper.CreateMap<Node, NodeModel>()
@@ -89,14 +90,17 @@ namespace IDB.Navigator.Site.Components.AutoMapper
             Mapper.CreateMap<Connection, ConnectionModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ConnectionId));
             Mapper.CreateMap<ConnectionModel, Connection>()
-                .ForMember(dest => dest.ConnectionId, opt => opt.MapFrom(src => src.Id));
+                .ForMember(dest => dest.ConnectionId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.NodeA, opt => opt.Ignore())
+                .ForMember(dest => dest.NodeB, opt => opt.Ignore());
 
             Mapper.CreateMap<Device, DeviceModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.DeviceId));
             Mapper.CreateMap<DeviceModel, Device>()
                 .ForMember(dest => dest.DeviceId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.LastBatteryStatus, opt => opt.Ignore())
-                .ForMember(dest => dest.LastTick, opt => opt.Ignore());
+                .ForMember(dest => dest.LastTick, opt => opt.Ignore())
+                .ForMember(dest => dest.FloorMap, opt => opt.Ignore());
 
             Mapper.CreateMap<Person, PersonModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PersonId))

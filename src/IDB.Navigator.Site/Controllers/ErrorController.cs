@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace IDB.Navigator.Site.Areas.Admin.Controllers
+namespace IDB.Navigator.Site.Controllers
 {
     [AllowAnonymous]
     public class ErrorController : Controller

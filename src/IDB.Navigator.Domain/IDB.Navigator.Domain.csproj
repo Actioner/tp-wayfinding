@@ -39,8 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ARMark.cs" />
     <Compile Include="Building.cs" />
     <Compile Include="Connection.cs" />
+    <Compile Include="IGeo.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Device.cs" />
     <Compile Include="FloorMap.cs" />

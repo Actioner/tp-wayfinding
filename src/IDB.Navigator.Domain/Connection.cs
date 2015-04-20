@@ -14,5 +14,7 @@ namespace IDB.Navigator.Domain
         public int NodeBId { get; set; }
         public bool Show { get; set; }
         public bool FloorConnection { get; set; }
+        public Node NodeA { get; set; }
+        public Node NodeB { get; set; }
     }
 }

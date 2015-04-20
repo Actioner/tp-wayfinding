@@ -2,7 +2,7 @@
 
 namespace IDB.Navigator.Domain
 {
-    public class Device
+    public class Device : IGeo
     {
         public int DeviceId { get; set; }
         public int FloorMapId { get; set; }
@@ -11,5 +11,6 @@ namespace IDB.Navigator.Domain
         public double Longitude { get; set; }
         public DateTime? LastTick { get; set; }
         public string LastBatteryStatus { get; set; }
+        public FloorMap FloorMap { get; set; }
     }
 }

@@ -152,6 +152,16 @@ function NavigationMap() {
         overviewMapControl: false,
         mapTypeControl: true
     });
+    self.map_.setOptions({
+        styles: [
+          {
+              "featureType": "landscape.man_made",
+              "stylers": [
+                { "visibility": "off" }
+              ]
+          }
+        ]
+    });
     self.connectionInfoWindow_ = new google.maps.InfoWindow({
         content: '<div id="connectionPlaceholder" style="width:279px; height:136px"></div>'
     });

@@ -9,7 +9,7 @@ using IDB.Navigator.Site.Areas.Admin.Models.Account;
 
 namespace IDB.Navigator.Site.Areas.Admin.Controllers
 {
-    [Authorize(Users= "IDB\\jfrodriguez,IDB\\rcerrato")]
+    [Authorize(Users = "IDB\\jfrodriguez,IDB\\rcerrato,IDB\\juanjf")]
     public abstract class BaseController : Controller
     {
         protected readonly IMappingEngine MappingEngine;
